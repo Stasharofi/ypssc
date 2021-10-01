@@ -31,18 +31,15 @@
 ####################################################################################################################################
 ##################################### alphaHelixCalculator() #######################################################################
 # >>
-alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Dropbox/Projects/20210925_alphaHelixCalculator/peptides_second rep.csv",
                                   pathworkingDir   = "C:/Users/Shashank/Desktop",
-                                  pathFolderOutput = NULL ) {
+                                  pathFolderOutput = "C:/Users/Shashank/Downloads" ) {
 
     print("Started")
 
     originalWorkingDir = getwd()   # << getting original current working directory
 
     # Setting the working directory to downloads so we can download the database from Dropbox >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    # pathDownload = 'C:/Users/Shashank/Downloads'
-    # setwd( pathDownload )
     setwd( pathworkingDir )
 
     # Checking if 'pathFolderOutput' is provided >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -53,19 +50,21 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
 
     # Reading the reduced database file form GitHub >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    dataBase_reduced = read.csv("https://raw.githubusercontent.com/Stasharofi/Transmembrane-alpha-helix-calculator/main/dataBase_reduced.csv")
+    # dataBase_reduced = read.csv("https://raw.githubusercontent.com/Stasharofi/Transmembrane-alpha-helix-calculator/main/dataBase_reduced.csv")
+    dataBase_reduced = read.csv("C:/Users/Shashank/Desktop/dataBase_reduced.csv")
 
     # Reading the database containing number of AA for each protein file form GitHub >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    dataBase_numOfAA = read.csv("https://raw.githubusercontent.com/Stasharofi/Transmembrane-alpha-helix-calculator/main/dataBase_numOfAA.csv")
+    # dataBase_numOfAA = read.csv("https://raw.githubusercontent.com/Stasharofi/Transmembrane-alpha-helix-calculator/main/dataBase_numOfAA.csv")
+    dataBase_numOfAA = read.csv("C:/Users/Shashank/Desktop/dataBase_numOfAA.csv")
 
     # Reading the sample form the user >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     df                  = read.csv( pathFileInput )
     df[c(61:69, 54:58)] = NULL
     names               = names(df)
-    sampleNames         = names[grepl("Intensity.", names)]
-    sampleNamesUpdate   = gsub('\\.|Intensity',' ',sampleNames)
+    sampleNames         = names[ grepl("Intensity.", names) ]
+    sampleNamesUpdate   = gsub( '\\.|Intensity.', ' ', sampleNames )
     names_list          = vector()
     i  = 1
     pb = winProgressBar( title = "progress bar",
@@ -108,29 +107,30 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
     # Removing the rows that are not needed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     dateTimeCurrent  = format( Sys.time(), "%Y%m%d_%H%M%S" )
-    nameFolderOutput = paste0( "results_AHC_", dateTimeCurrent )   # << name of the output folder
-    pathFolderOutput = paste0( pathFolderOutput, "/", nameFolderOutput )                 # << path of the output folder
+    nameFolderOutput = paste0( "results_AHC_", dateTimeCurrent )         # << name of the output folder
+    pathFolderOutput = paste0( pathFolderOutput, "/", nameFolderOutput ) # << path of the output folder
+    dir.create( pathFolderOutput )                                       # creating new folder for output files
     setwd( pathFolderOutput )                      # << setting working dir to "pathFolderOutput" to write output files
 
-    removeDoubious = dlgInput( paste("Do you want to remove the rows containing doubious proteins?\n
-  Rows that have 2 or more protiens assigned to one identified peptide are called doubious\n
-                                   Answer with yes or no") )$res
+    removeDoubious = dlgInput( paste0("Do you want to remove the rows containing doubious proteins?\n",
+                                       "Rows that have 2 or more protiens assigned to one identified peptide are called doubious\n",
+                                       "Answer with yes or no") )$res
     df = filter( df, !grepl( ';', df$Proteins) )
-    write.csv( df, paste0( dateTimeCurrent, "_", 'df.csv' ), row.names = FALSE)
+    write.csv( df, paste0( dateTimeCurrent, " ", 'df.csv' ), row.names = FALSE)
 
-    removeReverse = dlgInput( paste("Do you want to remove rows that contains peptides that matched to decoy that has reverse sequnce of real protein?\n
-  Theses proteins are usually removed.\n
-                                   Answer with yes or no") )$res
+    removeReverse  = dlgInput( paste0("Do you want to remove rows that contains peptides that matched to decoy that has reverse sequnce of real protein?\n",
+                                      "Theses proteins are usually removed.\n",
+                                      "Answer with yes or no") )$res
     df = filter( df, !grepl( '\\+', df$Reverse) )
 
-    removeReverse = dlgInput( paste("Do you want to remove rows that contains peptides that are showing signs of contamination?\n
-  Theses proteins are usually removed.\n
-                                   Answer with yes or no") )$res
+    removeReverse  = dlgInput( paste0("Do you want to remove rows that contains peptides that are showing signs of contamination?\n",
+                                      "Theses proteins are usually removed.\n",
+                                      "Answer with yes or no") )$res
     df = filter( df, !grepl( '\\+', df$Potential.contaminant) )
 
-    removeReverse = dlgInput( paste("Do you want to remove rows that contains peptides that are not showing any intensity?\n
-  Theses proteins are usually removed.\n
-                                   Answer with yes or no") )$res
+    removeReverse  = dlgInput( paste("Do you want to remove rows that contains peptides that are not showing any intensity?\n",
+                                      "Theses proteins are usually removed.\n",
+                                      "Answer with yes or no") )$res
     df = filter( df, df$Intensity > 0 )
 
     # Alpha helix calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -173,16 +173,20 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
 
         # Peptides in the sample >>
 
-        sample_peptides = filter(df,df[,temp]>0)
-        write.csv( sample_peptides, paste0( dateTimeCurrent, " ", 'List of peptides in ', sampleNamesUpdate[i], '.csv' ), row.names = FALSE )
+        sample_peptides = filter( df, df[,temp] > 0 )
+        write.csv( sample_peptides,
+                   paste0( dateTimeCurrent, " ", 'List of peptides in', sampleNamesUpdate[i], '.csv' ),
+                   row.names = FALSE )
 
-        sample = paste(as.character( sampleNamesUpdate[i]), '_ peptides' )
+        sample = paste( as.character(sampleNamesUpdate[i]), '_ peptides' )
         assign( sample, sample_peptides )
 
         # Proteins in the sample >>
 
         sample_proteins = unique( sample_peptides$Proteins )
-        write.csv( sample_proteins, paste0( dateTimeCurrent, " ", 'List of proteins in ', sampleNamesUpdate[i], '.csv' ), row.names = FALSE )
+        write.csv( sample_proteins,
+                   paste0( dateTimeCurrent, " ", 'List of proteins in', sampleNamesUpdate[i], '.csv' ),
+                   row.names = FALSE )
 
         sample = paste( as.character(sampleNamesUpdate[i]), '_ proteins' )
         assign( sample, sample_proteins )
@@ -241,9 +245,15 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
 
             results = left_join( results, cal_for_database, by = 'id' )
 
-            write.csv( results, paste0( dateTimeCurrent, " ", 'alpha_helix analysis of ', sampleNamesUpdate[i], '.csv' ), row.names = FALSE )
+            write.csv( results,
+                       paste0( dateTimeCurrent, " ", 'alpha_helix analysis of', sampleNamesUpdate[i], '.csv' ),
+                       row.names = FALSE )
 
-            setWinProgressBar( pb_2, j, title = paste('Alpha-helix calculation for ', sampleNames[i],'    ', round(j/length(sample_proteins)*100, 0), "% done"))
+            setWinProgressBar( pb_2, j,
+                               title = paste( 'Alpha-helix calculation for',
+                                              sampleNames[i],
+                                              '    ',
+                                              round(j/length(sample_proteins)*100, 0), "% done"))
 
         }
 
@@ -251,12 +261,13 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
 
     }
 
-    setwd( originalWorkingDir )  # << setting working directory back to original
+    setwd( originalWorkingDir )         # << setting working directory back to original
 
     endTime   = Sys.time()
     timeTaken = endTime - startTime
+    print( paste0( "Time taken for the AHC run: ", format(timeTaken) ) )
 
-    return( timeTaken )
+    return( invisible(NULL) )
 
 }
 # <<
