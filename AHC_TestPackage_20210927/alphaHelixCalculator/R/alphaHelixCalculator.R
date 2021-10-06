@@ -2,14 +2,14 @@
 ####################################################################################################################################
 ####################################################################################################################################
 # >>
-#' @title xxx alphaHelixCalculator xxx xxx xxx
+#' @title alphaHelixCalculator xxx xxx xxx
 #' @description xxxx xxxx This function does bla bla bla xxxx xxxx.
 #'   xxxxx xxxxxx xxxxx xxxx
 #'   xxxxx xxxxxx xxxxx xxxx
 #'   xxxxx xxxxxx xxxxx xxxx
 #'   xxxxx xxxxxx xxxxx xxxx
-#' @param pathFileInput xxxx xxxx file name file name from which bla bla bla.
-#' @param pathworkingDir xxxx xxxx file name from which bla bla bla xxxx xxxx.
+#' @param pathFileInput input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
+#' @param pathDirOutput directory path to which the output files will be generated xxxx xxxx xxxx.
 #' @import dplyr
 #' @import readxl
 #' @import stringr
@@ -19,11 +19,12 @@
 #' @import utils
 #' @import svDialogs
 #' @import tcltk
-#' @return bla bla bla
+#' @return xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' alphaHelixCalculator("someFileName")
+#' alphaHelixCalculator( pathFileInput    = "<someInputFileName>",
+#'                       pathDirOutput = "<someOutputFolderName>")
 #' }
 #' @export
 # <<
@@ -34,18 +35,17 @@
 ####################################################################################################################################
 ##################################### alphaHelixCalculator() #######################################################################
 # >>
-alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
-                                  pathworkingDir   = "C:/Users/Shashank/Desktop",
-                                  pathFolderOutput = "C:/Users/Shashank/Downloads" ) {
+alphaHelixCalculator <- function( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+                                  pathDirOutput = "C:/Users/Shashank/Downloads" ) {
 
     print("Started")
 
     originalWorkingDir = getwd()   # << getting original current working directory
-  
-    # Checking if 'pathFolderOutput' is provided ###################################################################################
 
-    if ( is.null( pathFolderOutput ) ) {
-        pathFolderOutput = getwd()
+    # Checking if 'pathDirOutput' is provided ###################################################################################
+
+    if ( is.null( pathDirOutput ) ) {
+        pathDirOutput = getwd()
     }
 
     # Creating separate dataBases for alpha, beta and chain ########################################################################
@@ -107,7 +107,7 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
                                        "Evidence.IDs","MS.MS.IDs","Best.MS.MS",
                                        "Oxidation..M..site.IDs","Taxonomy.IDs",
                                        "MS.MS.Count"))]
-    
+
     names               = names(df)
     sampleNames         = names[ grepl("Intensity.", names) ]
     sampleNamesUpdate   = gsub( '\\.|Intensity.', ' ', sampleNames )
@@ -133,7 +133,7 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
     class(sampleNameConfirmation)
 
     if ( sampleNameConfirmation == "yes" ) {
-      
+
         tkmessageBox( title   = "Message",
                       message = "Your analysis in in progress",
                       icon    = "info",
@@ -154,9 +154,9 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
 
     dateTimeCurrent  = format( Sys.time(), "%Y%m%d_%H%M%S" )
     nameFolderOutput = paste0( "results_AHC_", dateTimeCurrent )         # << name of the output folder
-    pathFolderOutput = paste0( pathFolderOutput, "/", nameFolderOutput ) # << path of the output folder
-    dir.create( pathFolderOutput )                                       # creating new folder for output files
-    setwd( pathFolderOutput )                      # << setting working dir to "pathFolderOutput" to write output files
+    pathDirOutput = paste0( pathDirOutput, "/", nameFolderOutput ) # << path of the output folder
+    dir.create( pathDirOutput )                                       # creating new folder for output files
+    setwd( pathDirOutput )                      # << setting working dir to "pathDirOutput" to write output files
 
     removeDoubious = dlgInput( paste0("Do you want to remove the rows containing doubious proteins?\n",
                                       "Rows that have 2 or more protiens assigned to one identified peptide are called doubious\n",
@@ -782,4 +782,55 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
 }
 # <<
 ##################################### alphaHelixCalculator() #######################################################################
+####################################################################################################################################
+
+
+
+####################################################################################################################################
+##################################### betaSheetCalculator() ########################################################################
+# >>
+betaSheetCalculator = function( pathFileInput    = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+                                pathDirOutput = "C:/Users/Shashank/Downloads" ) {
+
+    print("Started")
+
+    originalWorkingDir = getwd()   # << getting original current working directory
+
+    # Checking if 'pathDirOutput' is provided ###################################################################################
+
+    if ( is.null( pathDirOutput ) ) {
+        pathDirOutput = getwd()
+    }
+
+    # Start Here >>>>>>>
+
+}
+# <<
+##################################### betaSheetCalculator() ########################################################################
+####################################################################################################################################
+
+
+
+####################################################################################################################################
+##################################### chainCalculator() ############################################################################
+# >>
+chainCalculator = function( pathFileInput    = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+                            pathDirOutput = "C:/Users/Shashank/Downloads" ) {
+
+    print("Started")
+
+    originalWorkingDir = getwd()   # << getting original current working directory
+
+    # Checking if 'pathDirOutput' is provided ###################################################################################
+
+    if ( is.null( pathDirOutput ) ) {
+        pathDirOutput = getwd()
+    }
+
+    # Start Here >>>>>>>
+
+
+}
+# <<
+##################################### chainCalculator() ############################################################################
 ####################################################################################################################################
