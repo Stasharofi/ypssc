@@ -1,0 +1,23 @@
+Package: alphaHelixCalculator
+Type: Package
+Title: What the Package Does (Title Case)
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Shashank",
+        family = "Kumbhare",
+        role = c("aut", "cre"),
+        email = "shashank.kumbhare@mavs.uta.edu"),
+    person(given = "Sajad",
+        family = "Tasharofi",
+        role = c("aut", "cph"),
+        email = "sajad.tasharofi@uta.edu"))
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Imports:
+    dplyr, readxl, stringr, eulerr, ggplot2, Peptides, utils, svDialogs, tcltk
+Depends: 
+    R (>= 2.10)
