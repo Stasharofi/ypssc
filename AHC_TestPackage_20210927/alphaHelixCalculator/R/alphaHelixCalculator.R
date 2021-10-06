@@ -2,11 +2,14 @@
 ####################################################################################################################################
 ####################################################################################################################################
 # >>
-#' @title alphaHelixCalculator
-#' @description This function does bla bla bla.
-#' @param pathFileInput file name from which bla bla bla.
-#' @param pathFolderOutput file name from which bla bla bla.
-#' @param pathworkingDir file name from which bla bla bla.
+#' @title xxx alphaHelixCalculator xxx xxx xxx
+#' @description xxxx xxxx This function does bla bla bla xxxx xxxx.
+#'   xxxxx xxxxxx xxxxx xxxx
+#'   xxxxx xxxxxx xxxxx xxxx
+#'   xxxxx xxxxxx xxxxx xxxx
+#'   xxxxx xxxxxx xxxxx xxxx
+#' @param pathFileInput xxxx xxxx file name file name from which bla bla bla.
+#' @param pathworkingDir xxxx xxxx file name from which bla bla bla xxxx xxxx.
 #' @import dplyr
 #' @import readxl
 #' @import stringr
@@ -38,10 +41,7 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
     print("Started")
 
     originalWorkingDir = getwd()   # << getting original current working directory
-
-    # Setting the working directory to downloads so we can download the database from Dropbox ######################################
-    setwd( pathworkingDir )
-
+  
     # Checking if 'pathFolderOutput' is provided ###################################################################################
 
     if ( is.null( pathFolderOutput ) ) {
@@ -107,7 +107,7 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
                                        "Evidence.IDs","MS.MS.IDs","Best.MS.MS",
                                        "Oxidation..M..site.IDs","Taxonomy.IDs",
                                        "MS.MS.Count"))]
-
+    
     names               = names(df)
     sampleNames         = names[ grepl("Intensity.", names) ]
     sampleNamesUpdate   = gsub( '\\.|Intensity.', ' ', sampleNames )
@@ -133,7 +133,7 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
     class(sampleNameConfirmation)
 
     if ( sampleNameConfirmation == "yes" ) {
-
+      
         tkmessageBox( title   = "Message",
                       message = "Your analysis in in progress",
                       icon    = "info",
@@ -601,7 +601,6 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
         protein = vector()
         num_caa_pro_DB = vector()
 
-
         pb_1  =  winProgressBar(title = "progress bar",
                                 min = 0,
                                 max = length(num_Pro_caa),
@@ -631,7 +630,6 @@ alphaHelixCalculator <- function( pathFileInput    = "C:/Users/Shashank/Desktop/
         dataBase_small_2$id = sub("(\\|.*)","",
                                   dataBase_small_2$id)
         numOfProteinsInDatabase = unique(dataBase_small_2$id)
-
 
         if(typeOfAnalysis=="3"){
 
