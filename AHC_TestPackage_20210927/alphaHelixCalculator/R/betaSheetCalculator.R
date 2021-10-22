@@ -2,7 +2,7 @@
 ####################################################################################################################################
 ####################################################################################################################################
 # >>
-#' @title alphaHelixCalculator xxx xxx xxx
+#' @title betaSheetCalculator xxx xxx xxx
 #' @description xxxx xxxx This function does bla bla bla xxxx xxxx.
 #'   xxxxx xxxxxx xxxxx xxxx
 #'   xxxxx xxxxxx xxxxx xxxx
@@ -14,8 +14,8 @@
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' alphaHelixCalculator( pathFileInput = "<someInputFileName>",
-#'                       pathDirOutput = "<someOutputFolderName>")
+#' betaSheetCalculator( pathFileInput = "<someInputFileName>",
+#'                      pathDirOutput = "<someOutputFolderName>")
 #' }
 #' @export
 # <<
@@ -24,10 +24,10 @@
 
 
 ####################################################################################################################################
-##################################### alphaHelixCalculator() #######################################################################
+##################################### betaSheetCalculator() ########################################################################
 # >>
-alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
-                                 pathDirOutput = "C:/Users/Shashank/Downloads" ) {
+betaSheetCalculator = function( pathFileInput    = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+                                pathDirOutput = "C:/Users/Shashank/Downloads" ) {
 
     # Begin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -59,9 +59,9 @@ alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/pept
 
     df = removeRows( df, dateTimeCurrent )
 
-    # Alpha helix calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    # Beta-sheet calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    alphaHelixCalculation( df, sampleNames, sampleNamesUpdate )
+    betaSheetCalculation ( df, sampleNames, sampleNamesUpdate )
 
     # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -77,7 +77,6 @@ alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/pept
 
 }
 
-
 # <<
-##################################### alphaHelixtCalculator() ######################################################################
+##################################### betaSheetCalculator() ########################################################################
 ####################################################################################################################################
