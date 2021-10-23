@@ -80,7 +80,7 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
         sample_proteins = unique(sample_peptides$Proteins)
         write.csv( sample_proteins,
                    paste0( dateTimeCurrent,
-                           " ", 'List of peptides in',
+                           " ", 'List of proteins in',
                            sampleNamesUpdate[i], '.csv' ),
                    row.names = FALSE )
 
