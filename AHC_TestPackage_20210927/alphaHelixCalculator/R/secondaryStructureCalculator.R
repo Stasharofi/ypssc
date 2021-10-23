@@ -35,7 +35,7 @@
 ####################################################################################################################################
 ##################################### secondaryStructureCalculator() ###############################################################
 # >>
-secondaryStructureCalculator <- function( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+secondaryStructureCalculator <- function( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep_small.csv",
                                           pathDirOutput = "C:/Users/Shashank/Downloads" ) {
 
     # Begin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -68,27 +68,33 @@ secondaryStructureCalculator <- function( pathFileInput = "C:/Users/Shashank/Des
 
     df = removeRows( df, dateTimeCurrent )
 
+    # Writing `dataBase_numOfAA` >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    write.csv( dataBase_numOfAA,
+               "dataBase_numOfAA.csv",
+               row.names = FALSE )
+
     # Alpha helix calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    alphaHelixCalculation( df, sampleNames, sampleNamesUpdate )
+    alphaHelixCalculation( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
 
     # Beta-sheet calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    betaSheetCalculation ( df, sampleNames, sampleNamesUpdate )
+    betaSheetCalculation ( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
 
     # Chain calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    chainCalculation     ( df, sampleNames, sampleNamesUpdate )
-
-    # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    setwd( originalWorkingDir )
+    chainCalculation     ( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
 
     # End >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     endTime   = Sys.time()
     timeTaken = endTime - startTime
     print( paste0( "Time taken for the AHC run: ", format(timeTaken) ) )
+
+    # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    setwd( originalWorkingDir )
 
     return( invisible(NULL) )
 

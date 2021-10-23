@@ -26,7 +26,7 @@
 ####################################################################################################################################
 ##################################### betaSheetCalculator() ########################################################################
 # >>
-betaSheetCalculator = function( pathFileInput    = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+betaSheetCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
                                 pathDirOutput = "C:/Users/Shashank/Downloads" ) {
 
     # Begin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -59,13 +59,15 @@ betaSheetCalculator = function( pathFileInput    = "C:/Users/Shashank/Desktop/pe
 
     df = removeRows( df, dateTimeCurrent )
 
+    # Writing `dataBase_numOfAA` >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    write.csv( dataBase_numOfAA,
+               "dataBase_numOfAA.csv",
+               row.names = FALSE )
+
     # Beta-sheet calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    betaSheetCalculation ( df, sampleNames, sampleNamesUpdate )
-
-    # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    setwd( originalWorkingDir )
+    betaSheetCalculation ( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
 
     # End >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -73,10 +75,13 @@ betaSheetCalculator = function( pathFileInput    = "C:/Users/Shashank/Desktop/pe
     timeTaken = endTime - startTime
     print( paste0( "Time taken for the AHC run: ", format(timeTaken) ) )
 
+    # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    setwd( originalWorkingDir )
+
     return( invisible(NULL) )
 
 }
-
 # <<
 ##################################### betaSheetCalculator() ########################################################################
 ####################################################################################################################################

@@ -18,4 +18,13 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Depends:
-    dplyr, readxl, stringr, eulerr, ggplot2, Peptides, utils, svDialogs, tcltk
+    dplyr,
+    readxl,
+    stringr,
+    eulerr,
+    ggplot2,
+    Peptides,
+    utils,
+    svDialogs,
+    tcltk,
+    R (>= 2.10)

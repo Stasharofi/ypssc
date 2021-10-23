@@ -16,7 +16,7 @@
 # >>
 alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurrent ) {
 
-    dataBase_alpha   = select(dataBase_alpha,c(1,2))
+    dataBase_alpha   = select(dataBase_alpha, c(1,2))
     dataBase_reduced = dataBase_alpha
 
     num_Pro_aaa    = unique(dataBase_reduced$id)
@@ -29,6 +29,7 @@ alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeC
                            width = 300 )
     i = 1
     for( i in 1 : length(num_Pro_aaa) ) {
+
         item                = num_Pro_aaa[i]
         proteins            = filter(dataBase_reduced, id == item)
         num_aaa_pro_DB_temp = length(proteins$id)
@@ -37,48 +38,15 @@ alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeC
         proteins            = vector()
         num_aaa_pro_DB_temp = vector()
 
-        setWinProgressBar( pb_1, i, title = paste( 'Alpha-helix calculation for database     ',
-                                                   round(i/length(num_Pro_aaa)*100, 0),
-                                                   "% done") )
+        setWinProgressBar( pb_1, i,
+                           title = paste( 'Alpha-helix calculation for database     ',
+                                          round(i/length(num_Pro_aaa)*100, 0),
+                                          "% done") )
     }
+
     close(pb_1)
 
-    # calculating the number of amino acids for alpha ####
-
-    dataBase_small_2    = dataBase_small
-    dataBase_small_2$id = sub("(sp\\|)","",
-                              dataBase_small_2$id)
-    dataBase_small_2$id = sub("(\\|.*)","",
-                              dataBase_small_2$id)
-
-    numOfProteinsInDatabase = unique(dataBase_small$id)
-
-    i  = 1
-    aa = vector()
-    bb = vector()
-
-    pb_3  =  winProgressBar( title = "progress bar",
-                             min   = 0,
-                             max   = length(numOfProteinsInDatabase),
-                             width = 300)
-
-    for( i in 1 : length(numOfProteinsInDatabase) ) {
-
-         item = numOfProteinsInDatabase[i]
-         a    = nrow( filter(dataBase_small_2, id == item) )
-         aa   = c(aa,a)
-         bb   = c(bb,item)
-         setWinProgressBar( pb_3, i, title = paste( 'Processing the DataBase ',
-                                                    '    ',
-                                                    round( i/length(numOfProteinsInDatabase)*100, 0),
-                                                    "% done") )
-    }
-    close(pb_3)
-
-    dataBase_numOfAA = data.frame(id=bb,numberofAA=aa)
-
-    write.csv(dataBase_numOfAA, "dataBase_numOfAA.csv",
-              row.names = FALSE)
+    # Calculating the number of amino acids for alpha ####
 
     aaa              = data.frame( id      = protein,
                                    num_aaa = num_aaa_pro_DB )
@@ -131,38 +99,38 @@ alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeC
                                width = 300 )
 
         j = 1
-        for ( j in 1 : length(sample_proteins) ) {
+        for( j in 1 : length(sample_proteins) ) {
 
             item      = sample_proteins[j]
-            Pro_chunk = filter(sample_peptides, sample_peptides$Proteins == item)
+            Pro_chunk = filter( sample_peptides, sample_peptides$Proteins == item )
 
             k         = 1
             list_aa_s = vector()
 
             for( k in 1 : length(Pro_chunk$Proteins) ) {
 
-                start = Pro_chunk$Start.position[k]
-                end   = Pro_chunk$End.position[k]
+                start          = Pro_chunk$Start.position[k]
+                end            = Pro_chunk$End.position[k]
                 list_aa_s_temp = seq(start:end)
                 list_aa_s_temp = list_aa_s_temp+start-1
-                list_aa_s      = c(list_aa_s_temp,list_aa_s)
+                list_aa_s      = c( list_aa_s_temp, list_aa_s )
                 list_aa_s_temp = vector()
 
             }
 
             proteins_temp = item
-            proteins_in_s = c(proteins_temp,proteins_in_s)
+            proteins_in_s = c( proteins_temp, proteins_in_s )
             proteins_temp = vector()
 
-            aa_in_s_temp  = length(unique(list_aa_s))
-            aa_in_s       = c(aa_in_s_temp,aa_in_s)
+            aa_in_s_temp  = length( unique(list_aa_s) )
+            aa_in_s       = c( aa_in_s_temp, aa_in_s )
             aa_in_s_temp  = vector()
 
-            protein_chunk_dataBase = filter(dataBase_reduced, id==item)
+            protein_chunk_dataBase = filter( dataBase_reduced, id == item )
 
             aaa_in_s_temp = unique(list_aa_s)%in%protein_chunk_dataBase$n
             aaa_in_s_temp = sum(aaa_in_s_temp)
-            aaa_in_s      = c(aaa_in_s_temp,aaa_in_s)
+            aaa_in_s      = c( aaa_in_s_temp, aaa_in_s )
             aaa_in_s_temp = vector()
 
             results = data.frame( id                              = proteins_in_s,
@@ -171,11 +139,12 @@ alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeC
 
             results = left_join( results, cal_for_database, by = 'id' )
 
-            write.csv( results,
-                       paste0( dateTimeCurrent,
-                               " ", 'alpha_helix analysis of',
-                               sampleNamesUpdate[i], '.csv' ),
-                       row.names = FALSE )
+            # write.csv( results,
+            #            paste0( dateTimeCurrent,
+            #                    " ", "alpha_helix analysis of",
+            #                    sampleNamesUpdate[i],
+            #                    ".csv" ),
+            #            row.names = FALSE )
 
             setWinProgressBar( pb_2, j,
                                title = paste( 'Alpha-helix calculation for',
@@ -185,6 +154,13 @@ alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeC
                                               "% done"))
 
         }
+
+        write.csv( results,
+                   paste0( dateTimeCurrent,
+                           " ", "alpha_helix analysis of",
+                           sampleNamesUpdate[i],
+                           ".csv" ),
+                   row.names = FALSE )
 
         close(pb_2)
 

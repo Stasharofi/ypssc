@@ -40,17 +40,19 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
 
         setWinProgressBar( pb_1, i,
                            title = paste( 'chain calculation for database     ',
-                                          round( i/length(num_Pro_baa)*100, 0 ),
+                                          round( i/length(num_Pro_caa)*100, 0 ),
                                           "% done") )
     }
+
     close(pb_1)
 
     # Calculating the number of amino acids for chain ####
 
-    caa = data.frame( id      = protein,
-                      num_caa = num_caa_pro_DB )
-    cal_for_database = left_join( dataBase_numOfAA, caa,
-                                  by = 'id')
+    caa              = data.frame( id      = protein,
+                                   num_caa = num_caa_pro_DB )
+    cal_for_database = left_join(  dataBase_numOfAA,
+                                   caa,
+                                   by = 'id' )
 
     Sys.sleep(0.5)
 
@@ -65,9 +67,9 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
 
         sample_peptides = filter( df, df[,temp] > 0 )
         write.csv( sample_peptides,
-                   paste( 'List of peptides in',
-                          sampleNamesUpdate[i],
-                          '.csv'),
+                   paste0( dateTimeCurrent,
+                           " ", 'List of peptides in',
+                           sampleNamesUpdate[i], '.csv' ),
                    row.names = FALSE )
 
         sample = paste( as.character(sampleNamesUpdate[i]), '_ peptides' )
@@ -77,17 +79,15 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
 
         sample_proteins = unique(sample_peptides$Proteins)
         write.csv( sample_proteins,
-                   paste( 'List of proteins in',
-                          sampleNamesUpdate[i],
-                          '.csv' ),
+                   paste0( dateTimeCurrent,
+                           " ", 'List of peptides in',
+                           sampleNamesUpdate[i], '.csv' ),
                    row.names = FALSE )
 
         sample = paste( as.character(sampleNamesUpdate[i]), '_ proteins' )
         assign( sample, sample_proteins )
 
         # Calculating beta-sheet coverage for samples >>
-
-        startTime     = Sys.time()
 
         proteins_in_s = vector()
         aa_in_s       = vector()
@@ -106,13 +106,14 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
 
             k = 1
             list_aa_s = vector()
+
             for( k in 1 : length(Pro_chunk$Proteins) ) {
 
                 start          = Pro_chunk$Start.position[k]
                 end            = Pro_chunk$End.position[k]
                 list_aa_s_temp = seq(start:end)
                 list_aa_s_temp = list_aa_s_temp+start-1
-                list_aa_s      = c( list_aa_s_temp, list_aa_s)
+                list_aa_s      = c( list_aa_s_temp, list_aa_s )
                 list_aa_s_temp = vector()
 
             }
@@ -121,9 +122,9 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
             proteins_in_s = c( proteins_temp, proteins_in_s )
             proteins_temp = vector()
 
-            aa_in_s_temp = length( unique(list_aa_s) )
-            aa_in_s      = c( aa_in_s_temp, aa_in_s )
-            aa_in_s_temp = vector()
+            aa_in_s_temp  = length( unique(list_aa_s) )
+            aa_in_s       = c( aa_in_s_temp, aa_in_s )
+            aa_in_s_temp  = vector()
 
             protein_chunk_dataBase = filter( dataBase_reduced, id == item )
 
@@ -135,21 +136,31 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
             results = data.frame( id                             = proteins_in_s,
                                   num_amino_acids_in_sample      = aa_in_s,
                                   num_chain_amino_acids_in_sample= caa_in_s )
+
             results = left_join( results, cal_for_database, by = 'id' )
 
-            write.csv( results,
-                       paste( 'chain analysis of',
-                              sampleNamesUpdate[i],
-                              '.csv' ),
-                       row.names = FALSE )
+            # write.csv( results,
+            #            paste0( dateTimeCurrent,
+            #                    " ", "chain analysis of",
+            #                    sampleNamesUpdate[i],
+            #                    ".cs" ),
+            #            row.names = FALSE )
 
             setWinProgressBar( pb_2, j,
                                title = paste( 'chain calculation for ',
-                                              sampleNames[i],'    ',
+                                              sampleNames[i],
+                                              '    ',
                                               round( j/length(sample_proteins)*100, 0 ),
                                               "% done") )
 
         }
+
+        write.csv( results,
+                   paste0( dateTimeCurrent,
+                           " ", "chain analysis of",
+                           sampleNamesUpdate[i],
+                           ".cs" ),
+                   row.names = FALSE )
 
         close(pb_2)
 

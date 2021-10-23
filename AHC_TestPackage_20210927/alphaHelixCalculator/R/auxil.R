@@ -68,7 +68,8 @@ readFileInput <- function( pathFileInput ) {
         temp       = paste(sampleNamesUpdate[i],' \n \n ')
         temp
         names_list = paste( names_list, temp )
-        Sys.sleep(0.9)
+        # Sys.sleep(0.9)
+        Sys.sleep(0.1)
         setWinProgressBar( pb, i, title = paste( sampleNamesUpdate[i], '    ', round(i/length(sampleNames)*100, 0), "% done") )
     }
 

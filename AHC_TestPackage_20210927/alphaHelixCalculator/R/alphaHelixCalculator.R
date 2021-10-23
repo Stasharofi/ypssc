@@ -59,13 +59,15 @@ alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/pept
 
     df = removeRows( df, dateTimeCurrent )
 
+    # Writing `dataBase_numOfAA` >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    write.csv( dataBase_numOfAA,
+               "dataBase_numOfAA.csv",
+               row.names = FALSE )
+
     # Alpha helix calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    alphaHelixCalculation( df, sampleNames, sampleNamesUpdate )
-
-    # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    setwd( originalWorkingDir )
+    alphaHelixCalculation( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
 
     # End >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -73,11 +75,13 @@ alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/pept
     timeTaken = endTime - startTime
     print( paste0( "Time taken for the AHC run: ", format(timeTaken) ) )
 
+    # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    setwd( originalWorkingDir )
+
     return( invisible(NULL) )
 
 }
-
-
 # <<
 ##################################### alphaHelixtCalculator() ######################################################################
 ####################################################################################################################################

@@ -59,13 +59,15 @@ chainCalculator <- function( pathFileInput = "C:/Users/Shashank/Desktop/peptides
 
     df = removeRows( df, dateTimeCurrent )
 
+    # Writing `dataBase_numOfAA` >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    write.csv( dataBase_numOfAA,
+               "dataBase_numOfAA.csv",
+               row.names = FALSE )
+
     # Chain calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    chainCalculation     ( df, sampleNames, sampleNamesUpdate )
-
-    # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    setwd( originalWorkingDir )
+    chainCalculation     ( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
 
     # End >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -73,7 +75,12 @@ chainCalculator <- function( pathFileInput = "C:/Users/Shashank/Desktop/peptides
     timeTaken = endTime - startTime
     print( paste0( "Time taken for the AHC run: ", format(timeTaken) ) )
 
+    # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    setwd( originalWorkingDir )
+
     return( invisible(NULL) )
+
 }
 # <<
 ##################################### chainCalculator() ############################################################################
