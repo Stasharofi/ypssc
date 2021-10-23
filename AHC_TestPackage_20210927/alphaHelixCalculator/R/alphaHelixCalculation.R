@@ -139,13 +139,6 @@ alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeC
 
             results = left_join( results, cal_for_database, by = 'id' )
 
-            # write.csv( results,
-            #            paste0( dateTimeCurrent,
-            #                    " ", "alpha_helix analysis of",
-            #                    sampleNamesUpdate[i],
-            #                    ".csv" ),
-            #            row.names = FALSE )
-
             setWinProgressBar( pb_2, j,
                                title = paste( 'Alpha-helix calculation for',
                                               sampleNames[i],

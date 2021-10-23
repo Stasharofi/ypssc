@@ -19,7 +19,7 @@
 #' @import utils
 #' @import svDialogs
 #' @import tcltk
-#' @return xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+#' @return NULL
 #' @details DETAILS
 #' @examples
 #' \dontrun{

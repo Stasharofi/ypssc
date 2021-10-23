@@ -139,13 +139,6 @@ betaSheetCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCu
 
             results = left_join( results, cal_for_database, by='id' )
 
-            # write.csv( results,
-            #            paste0( dateTimeCurrent,
-            #                    " ", "beta-sheet analysis of",
-            #                    sampleNamesUpdate[i],
-            #                    ".csv" ),
-            #            row.names = FALSE )
-
             setWinProgressBar( pb_2, j,
                                title = paste( 'Beta-sheet calculation for ',
                                               sampleNames[i],

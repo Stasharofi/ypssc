@@ -80,7 +80,7 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
         sample_proteins = unique(sample_peptides$Proteins)
         write.csv( sample_proteins,
                    paste0( dateTimeCurrent,
-                           " ", 'List of peptides in',
+                           " ", 'List of proteins in',
                            sampleNamesUpdate[i], '.csv' ),
                    row.names = FALSE )
 
@@ -139,13 +139,6 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
 
             results = left_join( results, cal_for_database, by = 'id' )
 
-            # write.csv( results,
-            #            paste0( dateTimeCurrent,
-            #                    " ", "chain analysis of",
-            #                    sampleNamesUpdate[i],
-            #                    ".cs" ),
-            #            row.names = FALSE )
-
             setWinProgressBar( pb_2, j,
                                title = paste( 'chain calculation for ',
                                               sampleNames[i],
@@ -159,7 +152,7 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
                    paste0( dateTimeCurrent,
                            " ", "chain analysis of",
                            sampleNamesUpdate[i],
-                           ".cs" ),
+                           ".csv" ),
                    row.names = FALSE )
 
         close(pb_2)
