@@ -1,0 +1,5 @@
+
+1. cannot move to destination
+    Sys.setenv(R_INSTALL_STAGED = FALSE)
+    
+2. 

@@ -2,7 +2,7 @@
 ####################################################################################################################################
 ####################################################################################################################################
 # >>
-#' @title alphaHelixCalculator xxx xxx xxx
+#' @title secondaryStructureCalculator xxx xxx xxx
 #' @description xxxx xxxx This function does bla bla bla xxxx xxxx.
 #'   xxxxx xxxxxx xxxxx xxxx
 #'   xxxxx xxxxxx xxxxx xxxx
@@ -10,12 +10,21 @@
 #'   xxxxx xxxxxx xxxxx xxxx
 #' @param pathFileInput input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
 #' @param pathDirOutput directory path to which the output files will be generated xxxx xxxx xxxx.
+#' @import dplyr
+#' @import readxl
+#' @import stringr
+#' @import eulerr
+#' @import ggplot2
+#' @import Peptides
+#' @import utils
+#' @import svDialogs
+#' @import tcltk
 #' @return xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' alphaHelixCalculator( pathFileInput = "<someInputFileName>",
-#'                       pathDirOutput = "<someOutputFolderName>")
+#' secondaryStructureCalculator( pathFileInput = "<someInputFileName>",
+#'                               pathDirOutput = "<someOutputFolderName>")
 #' }
 #' @export
 # <<
@@ -24,10 +33,10 @@
 
 
 ####################################################################################################################################
-##################################### alphaHelixCalculator() #######################################################################
+##################################### secondaryStructureCalculator() ###############################################################
 # >>
-alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
-                                 pathDirOutput = "C:/Users/Shashank/Downloads" ) {
+secondaryStructureCalculator <- function( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep_small.csv",
+                                          pathDirOutput = "C:/Users/Shashank/Downloads" ) {
 
     # Begin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -69,6 +78,14 @@ alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/pept
 
     alphaHelixCalculation( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
 
+    # Beta-sheet calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    betaSheetCalculation ( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
+
+    # Chain calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    chainCalculation     ( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
+
     # End >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     endTime   = Sys.time()
@@ -83,5 +100,5 @@ alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/pept
 
 }
 # <<
-##################################### alphaHelixtCalculator() ######################################################################
+##################################### secondaryStructureCalculator() ###############################################################
 ####################################################################################################################################

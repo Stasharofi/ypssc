@@ -2,7 +2,7 @@
 ####################################################################################################################################
 ####################################################################################################################################
 # >>
-#' @title alphaHelixCalculator xxx xxx xxx
+#' @title chainCalculator xxx xxx xxx
 #' @description xxxx xxxx This function does bla bla bla xxxx xxxx.
 #'   xxxxx xxxxxx xxxxx xxxx
 #'   xxxxx xxxxxx xxxxx xxxx
@@ -14,8 +14,8 @@
 #' @details DETAILS
 #' @examples
 #' \dontrun{
-#' alphaHelixCalculator( pathFileInput = "<someInputFileName>",
-#'                       pathDirOutput = "<someOutputFolderName>")
+#' chainCalculator( pathFileInput = "<someInputFileName>",
+#'                  pathDirOutput = "<someOutputFolderName>")
 #' }
 #' @export
 # <<
@@ -24,10 +24,10 @@
 
 
 ####################################################################################################################################
-##################################### alphaHelixCalculator() #######################################################################
+##################################### chainCalculator() ############################################################################
 # >>
-alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
-                                 pathDirOutput = "C:/Users/Shashank/Downloads" ) {
+chainCalculator <- function( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+                             pathDirOutput = "C:/Users/Shashank/Downloads" ) {
 
     # Begin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -65,9 +65,9 @@ alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/pept
                "dataBase_numOfAA.csv",
                row.names = FALSE )
 
-    # Alpha helix calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    # Chain calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    alphaHelixCalculation( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
+    chainCalculation     ( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
 
     # End >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -83,5 +83,5 @@ alphaHelixCalculator = function( pathFileInput = "C:/Users/Shashank/Desktop/pept
 
 }
 # <<
-##################################### alphaHelixtCalculator() ######################################################################
+##################################### chainCalculator() ############################################################################
 ####################################################################################################################################
