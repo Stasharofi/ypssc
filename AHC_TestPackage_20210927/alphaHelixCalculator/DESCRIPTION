@@ -1,18 +1,21 @@
-Package: alphaHelixCalculator
+Package: ypssc
 Type: Package
-Title: What the Package Does (Title Case)
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Title: Yeast Proteome Secondary Structure Calculator
+Description: YPSSC is a package which does this bla bla bla. 
 Version: 0.1.0
 Authors@R: c(
-    person(given = "Shashank",
-        family = "Kumbhare",
-        role = c("aut", "cre"),
-        email = "shashank.kumbhare@mavs.uta.edu"),
     person(given = "Sajad",
         family = "Tasharofi",
         role = c("aut", "cph"),
-        email = "sajad.tasharofi@uta.edu"))
+        email = "sajad.tasharofi@uta.edu"),
+    person(given = "Shashank",
+        family = "Kumbhare",
+        role = c("aut"),
+        email = "shashank.kumbhare@mavs.uta.edu"),
+    person(given = "Bent",
+        family = "Petersen",
+        role = c("aut", "cre"),
+        email = "bent.petersen@sund.ku.dk"))
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -22,7 +25,6 @@ Depends:
     readxl,
     stringr,
     eulerr,
-    ggplot2,
     Peptides,
     utils,
     svDialogs,

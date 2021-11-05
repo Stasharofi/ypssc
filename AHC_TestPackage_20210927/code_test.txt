@@ -1,0 +1,34 @@
+
+=====================================================================================
+                                Shashank
+=====================================================================================
+
+findSecondary( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+               pathDirOutput = "C:/Users/Shashank/Downloads/")
+
+findAlpha( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+           pathDirOutput = "C:/Users/Shashank/Downloads/")
+
+findBeta( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+          pathDirOutput = "C:/Users/Shashank/Downloads/")
+
+findChain( pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+           pathDirOutput = "C:/Users/Shashank/Downloads/")
+
+=====================================================================================
+                                Sajad
+=====================================================================================
+
+findSecondary( pathFileInput = "C:/Users/Sajad/.csv",
+               pathDirOutput = "C:/Users/Sajad/")
+
+findAlpha( pathFileInput = "C:/Users/Sajad/.csv",
+           pathDirOutput = "C:/Users/Sajad/")
+
+findBeta( pathFileInput = "C:/Users/Sajad/.csv",
+          pathDirOutput = "C:/Users/Sajad/")
+
+findChain( pathFileInput = "C:/Users/Sajad/.csv",
+           pathDirOutput = "C:/Users/Sajad/")
+           
+=====================================================================================
