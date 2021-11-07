@@ -3,9 +3,10 @@
 ####################################################################################################################################
 # >>
 #' @title alphaHelixCalculation
-#' @param df input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
-#' @param sampleNames input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
-#' @param sampleNamesUpdate input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
+#' @param df Dataframe for input file data.
+#' @param sampleNames Names of the samples found in the input file.
+#' @param sampleNamesUpdate Updated names of the samples found in the input file.
+#' @param dateTimeCurrent Date and time at the time the simulation began.
 # <<
 ####################################################################################################################################
 ####################################################################################################################################
@@ -67,9 +68,10 @@ alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeC
 
         sample_peptides = filter( df, df[,temp] > 0 )
         write.csv( sample_peptides,
-                   paste0( dateTimeCurrent,
-                           " ", 'List of peptides in',
-                           sampleNamesUpdate[i], '.csv' ),
+                   gsub( " ", "_", paste0( dateTimeCurrent,
+                                           " ", 'List of peptides in',
+                                           sampleNamesUpdate[i],
+                                           '.csv' ), fixed = FALSE ),
                    row.names = FALSE )
 
         sample = paste( as.character(sampleNamesUpdate[i]), '_ peptides' )
@@ -77,11 +79,12 @@ alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeC
 
         # Proteins in the sample >>
 
-        sample_proteins = unique( sample_peptides$Proteins )
+        sample_proteins = unique(sample_peptides$Proteins)
         write.csv( sample_proteins,
-                   paste0( dateTimeCurrent,
-                           " ", 'List of proteins in',
-                           sampleNamesUpdate[i], '.csv' ),
+                   gsub( " ", "_", paste0( dateTimeCurrent,
+                                           " ", 'List of proteins in',
+                                           sampleNamesUpdate[i],
+                                           '.csv' ), fixed = FALSE ),
                    row.names = FALSE )
 
         sample = paste( as.character(sampleNamesUpdate[i]), '_ proteins' )
@@ -149,10 +152,10 @@ alphaHelixCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeC
         }
 
         write.csv( results,
-                   paste0( dateTimeCurrent,
-                           " ", "alpha_helix analysis of",
-                           sampleNamesUpdate[i],
-                           ".csv" ),
+                   gsub( " ", "_", paste0( dateTimeCurrent,
+                                           " ", "alpha helix analysis of",
+                                           sampleNamesUpdate[i],
+                                           ".csv" ), fixed = FALSE ),
                    row.names = FALSE )
 
         close(pb_2)

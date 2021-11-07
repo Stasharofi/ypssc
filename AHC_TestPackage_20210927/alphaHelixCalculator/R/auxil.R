@@ -7,8 +7,8 @@
 ####################################################################################################################################
 ####################################################################################################################################
 # >>
-#' @title readFileInput
-#' @param pathFileInput input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
+# @title readFileInput
+# @param pathFileInput input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
 # <<
 ####################################################################################################################################
 ####################################################################################################################################
@@ -139,7 +139,7 @@ removeRows <- function( df, dateTimeCurrent ) {
                                       "Rows that have 2 or more protiens assigned to one identified peptide are called doubious\n",
                                       "Answer with yes or no") )$res
     df = filter( df, !grepl( ';', df$Proteins) )
-    write.csv( df, paste0( dateTimeCurrent, " ", 'df.csv' ), row.names = FALSE)
+    write.csv( df, paste0( dateTimeCurrent, "_", 'df.csv' ), row.names = FALSE)
 
     removeReverse  = dlgInput( paste0("Do you want to remove rows that contains peptides that matched to decoy that has reverse ",
                                       "sequnce of real protein?\n",

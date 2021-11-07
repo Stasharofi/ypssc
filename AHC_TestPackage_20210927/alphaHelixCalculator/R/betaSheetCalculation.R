@@ -3,9 +3,10 @@
 ####################################################################################################################################
 # >>
 #' @title betaSheetCalculation
-#' @param df input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
-#' @param sampleNames input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
-#' @param sampleNamesUpdate input file path from which bla bla bla xxxx xxxx xxxx xxxx xxxx xxxx xxxx.
+#' @param df Dataframe for input file data.
+#' @param sampleNames Names of the samples found in the input file.
+#' @param sampleNamesUpdate Updated names of the samples found in the input file.
+#' @param dateTimeCurrent Date and time at the time the simulation began.
 # <<
 ####################################################################################################################################
 ####################################################################################################################################
@@ -67,9 +68,10 @@ betaSheetCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCu
 
         sample_peptides = filter( df, df[,temp] > 0 )
         write.csv( sample_peptides,
-                   paste0( dateTimeCurrent,
-                           " ", 'List of peptides in',
-                           sampleNamesUpdate[i], '.csv' ),
+                   gsub( " ", "_", paste0( dateTimeCurrent,
+                                           " ", 'List of peptides in',
+                                           sampleNamesUpdate[i],
+                                           '.csv' ), fixed = FALSE ),
                    row.names = FALSE )
 
         sample = paste( as.character(sampleNamesUpdate[i]), '_ peptides' )
@@ -79,9 +81,10 @@ betaSheetCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCu
 
         sample_proteins = unique(sample_peptides$Proteins)
         write.csv( sample_proteins,
-                   paste0( dateTimeCurrent,
-                           " ", 'List of proteins in',
-                           sampleNamesUpdate[i], '.csv' ),
+                   gsub( " ", "_", paste0( dateTimeCurrent,
+                                           " ", 'List of proteins in',
+                                           sampleNamesUpdate[i],
+                                           '.csv' ), fixed = FALSE ),
                    row.names = FALSE )
 
         sample = paste( as.character(sampleNamesUpdate[i]), '_ proteins' )
@@ -149,10 +152,10 @@ betaSheetCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCu
         }
 
         write.csv( results,
-                   paste0( dateTimeCurrent,
-                           " ", "beta-sheet analysis of",
-                           sampleNamesUpdate[i],
-                           ".csv" ),
+                   gsub( " ", "_", paste0( dateTimeCurrent,
+                                           " ", "beta-sheet analysis of",
+                                           sampleNamesUpdate[i],
+                                           ".csv" ), fixed = FALSE ),
                    row.names = FALSE )
 
         close(pb_2)

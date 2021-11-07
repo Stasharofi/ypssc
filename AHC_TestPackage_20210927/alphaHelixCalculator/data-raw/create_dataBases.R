@@ -3,27 +3,20 @@
 ##################################### Reading the database #########################################################################
 # >>
 
+library(dplyr)
+
 # `dataBase_small` database >>
 
 dataBase_small    = read.csv("C:/Users/Shashank/Dropbox/Projects/Transmembrane-alpha-helix-calculator/dataBases/dataBase_small.csv")
 dataBase_small$id = sub( "(\\|.*)", "",
                          sub( "(sp\\|)", "",
                               dataBase_small$id ) )
-# Saving `dataBase_small` databse >>
-
-usethis::use_data( dataBase_small, overwrite = TRUE )
 
 # `Alpha`, `beta`, `chain` databases >>
 
 dataBase_alpha    = filter( dataBase_small, q3 == 'H' )
 dataBase_beta     = filter( dataBase_small, q3 == 'E' )
 dataBase_chain    = filter( dataBase_small, q3 == 'C' )
-
-# Saving `alpha`, `beta`, `chain` databases >>
-
-usethis::use_data( dataBase_alpha, overwrite = TRUE )
-usethis::use_data( dataBase_beta,  overwrite = TRUE )
-usethis::use_data( dataBase_chain, overwrite = TRUE )
 
 # `dataBase_numOfAA` database >>
 
@@ -53,9 +46,17 @@ close(pb_3)
 
 dataBase_numOfAA = data.frame( id = bb, numberofAA = aa )
 
-# Saving `dataBase_numOfAA` database >>
+# Saving `dataBase_small`, `dataBase_alpha`, `dataBase_beta`,`dataBase_chain`, `dataBase_numOfAA` database >>
 
-usethis::use_data( dataBase_numOfAA, overwrite = TRUE )
+  # Note: If you have more than one internal data, you must save them together.
+
+usethis::use_data( dataBase_small,
+                   dataBase_alpha,
+                   dataBase_beta,
+                   dataBase_chain,
+                   dataBase_numOfAA,
+                   overwrite = TRUE,
+                   internal  = TRUE )
 
 # <<
 ##################################### Reading the database #########################################################################
