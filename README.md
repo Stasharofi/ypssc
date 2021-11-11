@@ -18,3 +18,4 @@ It calculates the percentage coverage in alpha-helix part of of transmembrane pr
 The file in the peptides contains many columns for many samples; for each sample you need to keep the following  columns and delete the rest. Keep “Sequance, “start.position”, “End Position” and “ Experiment …” which contains the peptide information regarding a specific sample.
 
 - After preparing the peptides files as explained above, you can run the whole R program and it should produce the results for you in the same folder.
+- test
