@@ -6,8 +6,7 @@
 \alias{ypssc-package}
 \title{ypssc: Yeast Proteome Secondary Structure Calculator}
 \description{
-`ypssc` is an R-package which is specifically designed to analyze the results of bottom-up proteomics that has 
-    primarily analyzed with MaxQuant.
+Yeast Proteome Secondary Structure Calculator (ypssc) is an extension for NetSurfP-2.0 which is specifically designed to analyze the results of bottom-up proteomics that is primarily analyzed with MaxQuant. This tool is designed to process a large number of yeast peptides that produced as a results of whole yeast cell proteome digestion and provide a coherent picture of secondary structure of proteins.
 }
 \details{
 \describe{\item{\emph{\strong{What is \code{ypssc}?}}}{
@@ -97,11 +96,11 @@ about amino acids.
 \code{\link{findSecondary}}, \code{\link{findAlpha}}, \code{\link{findBeta}}, \code{\link{findChain}}
 }
 \author{
-\strong{Maintainer}: Sajad Tasharofi \email{sajad.tasharofi@uta.edu} [copyright holder]
+\strong{Maintainer}: Shashank Kumbhare \email{shashank.kumbhare@mavs.uta.edu} [copyright holder]
 
 Authors:
 \itemize{
-  \item Shashank Kumbhare \email{shashank.kumbhare@mavs.uta.edu}
+  \item Sajad Tasharofi \email{sajad.tasharofi@uta.edu} [copyright holder]
   \item Bent Petersen \email{bent.petersen@sund.ku.dk}
   \item Morteza Khaledi \email{morteza.khaledi@uta.edu}
 }

@@ -7,6 +7,7 @@
 #' @param sampleNames Names of the samples found in the input file.
 #' @param sampleNamesUpdate Updated names of the samples found in the input file.
 #' @param dateTimeCurrent Date and time at the time the simulation began.
+#' @noRd
 # <<
 ####################################################################################################################################
 ####################################################################################################################################

@@ -18,7 +18,7 @@
 #' @return The output of the program is a csv file (.csv) that contains 5 columns, and the number of rows depends on the number of
 #'   proteins in the sample. \cr
 #'   \cr
-#'   First column contains the ID of the identified α-helix proteins in the sample, second column contains the number of identified
+#'   First column contains the ID of the identified alpha-helix proteins in the sample, second column contains the number of identified
 #'   amino acids from the corresponding protein, third column contains number of identified amino acids with secondary structure,
 #'   fourth column contains the number of amino acids that the protein originally has in the SSDYP, and fifth column contains the
 #'   number of amino acids in chain structure that the protein originally has in the SSDYP. \cr
