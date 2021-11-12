@@ -5,7 +5,7 @@ Description: Yeast-Proteome Secondary-Structure Calculator ('ypssc') is an exten
     designed to analyze the results of bottom-up-proteomics that is primarily analyzed with 'MaxQuant'. This tool is designed to 
     process a large number of yeast peptides that produced as a results of whole yeast cell-proteome digestion and provide a 
     coherent picture of secondary structure of proteins.
-Version: 2.0.0
+Version: 1.0.0
 Authors@R: c(
     person(given = "Sajad",
         family   = "Tasharofi",
