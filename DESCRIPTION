@@ -7,11 +7,11 @@ Version: 0.1.0
 Authors@R: c(
     person(given = "Sajad",
         family   = "Tasharofi",
-        role     = c("aut", "cph", "cre"),
+        role     = c("aut", "cph"),
         email    = "sajad.tasharofi@uta.edu"),
     person(given = "Shashank",
         family   = "Kumbhare",
-        role     = c("aut"),
+        role     = c("aut", "cre"),
         email    = "shashank.kumbhare@mavs.uta.edu"),
     person(given = "Bent",
         family   = "Petersen",

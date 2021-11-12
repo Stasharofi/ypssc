@@ -7,7 +7,7 @@ library(dplyr)
 
 # `dataBase_small` database >>
 
-dataBase_small    = read.csv("C:/Users/Shashank/Dropbox/Projects/Transmembrane-alpha-helix-calculator/dataBases/dataBase_small.csv")
+dataBase_small    = read.csv("C:/Users/Shashank/Dropbox/Projects/20210725_ypssc/dataBases/dataBase_small.csv")
 dataBase_small$id = sub( "(\\|.*)", "",
                          sub( "(sp\\|)", "",
                               dataBase_small$id ) )
