@@ -1,0 +1,26 @@
+{
+    "id": "FE68808D",
+    "path": "C:/Users/Shashank/Dropbox/Projects/Transmembrane-alpha-helix-calculator/ypssc_TestPackage_20210927/ypssc/R/findSecondary.R",
+    "project_path": "R/findSecondary.R",
+    "type": "r_source",
+    "hash": "4020442202",
+    "contents": "",
+    "dirty": false,
+    "created": 1636580374724.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "46,12",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1636581234,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1636581234695,
+    "read_only": false,
+    "read_only_alternatives": []
+}

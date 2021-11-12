@@ -1,0 +1,42 @@
+Package: ypssc
+Type: Package
+Title: Yeast Proteome Secondary Structure Calculator
+Description: `ypssc` is an R-package which is specifically designed to analyze the results of bottom-up proteomics that has 
+    primarily analyzed with MaxQuant.
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Sajad",
+        family   = "Tasharofi",
+        role     = c("aut", "cph", "cre"),
+        email    = "sajad.tasharofi@uta.edu"),
+    person(given = "Shashank",
+        family   = "Kumbhare",
+        role     = c("aut"),
+        email    = "shashank.kumbhare@mavs.uta.edu"),
+    person(given = "Bent",
+        family   = "Petersen",
+        role     = c("aut"),
+        email    = "bent.petersen@sund.ku.dk"),
+    person(given = "Morteza",
+        family   = "Khaledi",
+        role     = c("aut"),
+        email    = "morteza.khaledi@uta.edu") )
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+StagedInstall: no
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+Suggests:
+    rmarkdown
+Imports:
+    dplyr,
+    readxl,
+    stringr,
+    eulerr,
+    Peptides,
+    utils,
+    svDialogs,
+    tcltk
+Depends:
+    R (>= 2.10)
