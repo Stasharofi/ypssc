@@ -24,7 +24,7 @@ Once the file type is being tracked you just have to add it:
 You can verify it is being tracked by typing:    
 
     git lfs ls-files
-
+       
 Once it has been added you need to commit it then push it to your repo:    
 
     git commit -m "Notes you want included along with you commit"

@@ -87,7 +87,7 @@
     
     b. Install sourse .zip file: 
     
-        path_to_file = "C:/Users/Shashank/Dropbox/Projects/20210725_ypssc/ypssc_testPackage_20210927/ypssc_1.0.0.zip"
+        path_to_file = "C:/Users/Shashank/Dropbox/Projects/20210725_ypssc/ypssc_1.0.0.zip"
         install.packages(path_to_file, repos = NULL, type="source")
         
         library(ypssc)

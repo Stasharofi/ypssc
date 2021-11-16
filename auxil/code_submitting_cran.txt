@@ -1,4 +1,2 @@
 
 1. usethis::use_release_issue()
-
-2. 
