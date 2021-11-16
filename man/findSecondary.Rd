@@ -2,7 +2,7 @@
 % Please edit documentation in R/findSecondary.R
 \name{findSecondary}
 \alias{findSecondary}
-\title{Yeast Secondary Structure Calculator}
+\title{Secondary Structure Calculator}
 \usage{
 findSecondary(pathFileInput = NULL, pathDirOutput = NULL)
 }
@@ -14,7 +14,7 @@ raw file (.raw) from high-resolution mass spectrometers. After analysis of the r
 folder named “combined”. \cr
 \cr
 In this folder there is another folder named “txt” which contains many files with text format (.txt). One of the files called
-“peptides” which is the input of the YPSSC to calculate secondary structures. YPSSC has been designed such a way that can
+“peptides” which is the input of the ypssc to calculate secondary structures. ypssc has been designed such a way that can
 analyzed and extract information regarding the sample regardless of the name that user chosen for the sample.}
 
 \item{pathDirOutput}{Path of the directory to which the output files will be generated.}

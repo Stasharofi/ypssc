@@ -4,9 +4,9 @@
 \name{ypssc-package}
 \alias{ypssc}
 \alias{ypssc-package}
-\title{ypssc: 'Yeast-Proteome Secondary-Structure Calculator'}
+\title{ypssc: Yeast-Proteome Secondary-Structure Calculator}
 \description{
-Yeast-Proteome Secondary-Structure Calculator ('ypssc') is an extension for 'NetSurfP-2.0' which is specifically designed to analyze the results of bottom-up-proteomics that is primarily analyzed with 'MaxQuant'. This tool is designed to process a large number of yeast peptides that produced as a results of whole yeast cell-proteome digestion and provide a coherent picture of secondary structure of proteins.
+An extension for 'NetSurfP-2.0' which is specifically designed to analyze the results of bottom-up-proteomics that is primarily analyzed with 'MaxQuant'. This tool is designed to process a large number of yeast peptides that produced as a results of whole yeast cell-proteome digestion and provide a coherent picture of secondary structure of proteins.
 }
 \details{
 \describe{\item{\emph{\strong{What is \code{ypssc}?}}}{

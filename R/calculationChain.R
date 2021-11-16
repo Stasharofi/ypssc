@@ -2,7 +2,7 @@
 ####################################################################################################################################
 ####################################################################################################################################
 # >>
-#' @title chainCalculation
+#' @title calculationChain
 #' @param df Dataframe for input file data.
 #' @param sampleNames Names of the samples found in the input file.
 #' @param sampleNamesUpdate Updated names of the samples found in the input file.
@@ -14,14 +14,18 @@
 
 
 ####################################################################################################################################
-##################################### chainCalculation() ###########################################################################
+##################################### calculationChain() ###########################################################################
 # >>
-chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurrent ) {
+calculationChain <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurrent ) {
 
-    dataBase_chain   = select(dataBase_chain,c(1,2))
-    dataBase_reduced = dataBase_chain
+	# Performing Alpha-helix calculation for database ####
+	Err$prefix = "Chain"
+	Err$note(0)
+	Err$note( "Performing chain calculation for database..." )
 
-    num_Pro_caa    = unique(dataBase_reduced$id)
+    dataBase_chain   = select( dataBase_chain, c(1,2) )
+
+    num_Pro_caa    = unique( dataBase_chain$id )
     protein        = vector()
     num_caa_pro_DB = vector()
 
@@ -35,8 +39,8 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
         item                = num_Pro_caa[i]
         proteins            = filter( dataBase_chain, id == item )
         num_caa_pro_DB_temp = length(proteins$id)
-        num_caa_pro_DB      = c(num_caa_pro_DB_temp,num_caa_pro_DB)
-        protein             = c(unique(proteins$id),protein)
+        num_caa_pro_DB      = c( num_caa_pro_DB_temp, num_caa_pro_DB )
+        protein             = c( unique(proteins$id), protein )
         proteins            = vector()
         num_caa_pro_DB_temp = vector()
 
@@ -46,6 +50,7 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
                                           "% done") )
     }
 
+    Err$note("Done." )
     close(pb_1)
 
     # Calculating the number of amino acids for chain ####
@@ -63,36 +68,39 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
     i = 1
     for( i in 1 : length(sampleNames) ) {
 
-        temp = which( names(df) == sampleNames[i] )
+        Err$note( 0 )
+        Err$note( paste0("Working on sample: ", sampleNamesUpdate[i] ) )
+        Err$note( 1 )
 
         # Peptides in the sample >>
-
+        Err$note( "Geting list of peptides..." )
+        temp = which( names(df) == sampleNames[i] )
         sample_peptides = filter( df, df[,temp] > 0 )
+        Err$note("Done." )
+        nameFile = gsub( " ", "_", paste0( dateTimeCurrent, " ", 'list of peptides in', sampleNamesUpdate[i], '.csv' ), fixed = FALSE )
         write.csv( sample_peptides,
-                   gsub( " ", "_", paste0( dateTimeCurrent,
-                                           " ", 'List of peptides in',
-                                           sampleNamesUpdate[i],
-                                           '.csv' ), fixed = FALSE ),
+                   nameFile,
                    row.names = FALSE )
-
+        updateUserFileCreated( nameFile )
+        Err$note( 1 )
         sample = paste( as.character(sampleNamesUpdate[i]), '_ peptides' )
         assign( sample, sample_peptides )
 
         # Proteins in the sample >>
-
+        Err$note( "Geting list of proteins..." )
         sample_proteins = unique(sample_peptides$Proteins)
+        Err$note("Done." )
+        nameFile = gsub( " ", "_", paste0( dateTimeCurrent, " ", 'list of proteins in', sampleNamesUpdate[i], '.csv' ), fixed = FALSE )
         write.csv( sample_proteins,
-                   gsub( " ", "_", paste0( dateTimeCurrent,
-                                           " ", 'List of proteins in',
-                                           sampleNamesUpdate[i],
-                                           '.csv' ), fixed = FALSE ),
+                   nameFile,
                    row.names = FALSE )
-
+        updateUserFileCreated( nameFile )
+        Err$note( 1 )
         sample = paste( as.character(sampleNamesUpdate[i]), '_ proteins' )
         assign( sample, sample_proteins )
 
-        # Calculating beta-sheet coverage for samples >>
-
+        # Calculating chain coverage for samples >>
+        Err$note( "Calculating chain coverage for samples..." )
         proteins_in_s = vector()
         aa_in_s       = vector()
         caa_in_s      = vector()
@@ -130,21 +138,21 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
             aa_in_s       = c( aa_in_s_temp, aa_in_s )
             aa_in_s_temp  = vector()
 
-            protein_chunk_dataBase = filter( dataBase_reduced, id == item )
+            protein_chunk_dataBase = filter( dataBase_chain, id == item )
 
             caa_in_s_temp = unique(list_aa_s)%in%protein_chunk_dataBase$n
             caa_in_s_temp = sum(caa_in_s_temp)
             caa_in_s      = c( caa_in_s_temp, caa_in_s )
             caa_in_s_temp = vector()
 
-            results = data.frame( id                             = proteins_in_s,
-                                  num_amino_acids_in_sample      = aa_in_s,
-                                  num_chain_amino_acids_in_sample= caa_in_s )
+            results = data.frame( id                              = proteins_in_s,
+                                  num_amino_acids_in_sample       = aa_in_s,
+                                  num_chain_amino_acids_in_sample = caa_in_s )
 
             results = left_join( results, cal_for_database, by = 'id' )
 
             setWinProgressBar( pb_2, j,
-                               title = paste( 'chain calculation for ',
+                               title = paste( 'Chain calculation for ',
                                               sampleNames[i],
                                               '    ',
                                               round( j/length(sample_proteins)*100, 0 ),
@@ -152,19 +160,21 @@ chainCalculation <- function( df, sampleNames, sampleNamesUpdate, dateTimeCurren
 
         }
 
+        Err$note( "Done" )
+        nameFile = gsub( " ", "_", paste0( dateTimeCurrent, " ", 'chain analysis of', sampleNamesUpdate[i], '.csv' ), fixed = FALSE )
         write.csv( results,
-                   gsub( " ", "_", paste0( dateTimeCurrent,
-                                           " ", "chain analysis of",
-                                           sampleNamesUpdate[i],
-                                           ".csv" ), fixed = FALSE ),
+                   nameFile,
                    row.names = FALSE )
+        updateUserFileCreated( nameFile )
 
         close(pb_2)
 
     }
 
+	Err$reset()
+
     return( invisible(NULL) )
 }
 # <<
-##################################### chainCalculation() ###########################################################################
+##################################### calculationChain() ###########################################################################
 ####################################################################################################################################

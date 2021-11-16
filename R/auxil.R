@@ -5,9 +5,107 @@
 
 
 ####################################################################################################################################
+##################################### checkFileInput() #############################################################################
+# >>
+checkFileInput = function( pathFileInput = NULL ){
+
+    # Checking if `pathFileInput` is provided or the file exists >>
+    if ( is.null(pathFileInput) ) { isFile = FALSE }
+    else                          { isFile = file.exists( pathFileInput ) }
+
+    # Selecting an input file from a doalog box if `pathFileInput` is not provided or if `pathFileInput` does not exists >>
+    if ( !isFile ) {
+        msg = paste0( "Argument `pathFileInput` is not provided.\n",
+                      "              or \n",
+                      "The file does not exists.\n",
+                      "\n",
+                      "Input csv file generated from MaxQuant is necessary to run this function.\n",
+                      "\n",
+                      "Do you want to select an input csv file generated from MaxQuant?" )
+        Err$warn( 0 )
+        Err$warn( msg )
+        response = dlgMessage( msg,
+                               type = "yesno" )$res
+
+        if ( response == "yes" ) {
+            msgSelectFile = "Please select an input csv file generated from MaxQuant."
+            Err$note( 0 )
+            Err$note( paste0( "A dialog box must have been opened.\n",
+                              msgSelectFile ) )
+            pathFileInput = dlg_open( title = msgSelectFile )$res
+        } else {
+
+            updateUserFailure( "Argument `pathFileInput` is not provided." )
+        }
+    }
+
+    # Printing `pathFileInput` provided >>
+    Err$note( 0 )
+    Err$note( paste0( "Provided input csv file generated from MaxQuant:\n",
+                      "'", pathFileInput, "'" ) )
+
+    return( pathFileInput )
+
+}
+# <<
+##################################### checkFileInput() #############################################################################
+####################################################################################################################################
+
+
+####################################################################################################################################
+##################################### checkDirOutput() #############################################################################
+# >>
+checkDirOutput = function( pathDirOutput = NULL ){
+
+    # Checking if `pathDirOutput` is provided or the dir exists >>
+    if ( is.null(pathDirOutput) ) { isDir = FALSE }
+    else                          { isDir = dir.exists( pathDirOutput ) }
+
+    # Selecting an output dir from a doalog box if `pathDirOutput` is not provided or if `pathDirOutput` does not exists >>
+    if ( !isDir ) {
+        msg = paste0( "Argument `pathDirOutput` is not provided.\n",
+                      "              or \n",
+                      "The directory does not exists.\n",
+                      "\n",
+                      "Do you want to select an output directory? \n",
+                      "'Yes': Then select. \n",
+                      "'No' : Then the current working directory will be selected." )
+        Err$warn( 0 )
+        Err$warn( msg )
+        response = dlgMessage( msg,
+                               type = "yesno" )$res
+
+        if ( response == "yes" ) {
+            msgSelectDir = "Please select an output directory."
+            Err$note( 0 )
+            Err$note( paste0( "A dialog box must have been opened. \n",
+                              msgSelectDir ) )
+            pathDirOutput = dlg_dir( title = msgSelectDir )$res
+        } else {
+            pathDirOutput = getwd()
+        }
+    }
+
+    # Printing `pathDirOutput` provided >>
+    Err$note( 0 )
+    Err$note( paste0( "Provided output directory where the output files will be saved:\n",
+                      "'", pathDirOutput, "'" ) )
+
+    return( pathDirOutput )
+
+}
+# <<
+##################################### checkDirOutput() #############################################################################
+####################################################################################################################################
+
+
+####################################################################################################################################
 ##################################### readFileInput() ##############################################################################
 # >>
 readFileInput <- function( pathFileInput ) {
+
+    Err$note(0)
+    Err$note( paste0( "Reading input file...." ) )
 
     # Reading csv file >>
 
@@ -55,10 +153,9 @@ readFileInput <- function( pathFileInput ) {
                          width = 300 )
 
     for ( i in 1 : length(sampleNames) ) {
-        temp       = paste(sampleNamesUpdate[i],' \n \n ')
-        temp
-        names_list = paste( names_list, temp )
-        # Sys.sleep(0.9)
+        # temp       = paste(sampleNamesUpdate[i],' \n \n ')
+        temp       = sampleNamesUpdate[i]
+        names_list = c( names_list, temp )
         Sys.sleep(0.1)
         setWinProgressBar( pb, i, title = paste( sampleNamesUpdate[i], '    ', round(i/length(sampleNames)*100, 0), "% done") )
     }
@@ -67,26 +164,20 @@ readFileInput <- function( pathFileInput ) {
 
     # Conformation about sample names from user >>
 
-    sampleNameConfirmation = dlgInput(paste("Identified sample names in the uploaded file:\n \n \n", names_list,
-                                            "\nIf it is correct, please enter 'Yes'"))$res
-    class(sampleNameConfirmation)
+    sampleNameConfirmation = dlgMessage( c( "Identified sample names in the uploaded file:",
+                                            "\n",
+                                            names_list,
+                                            "\n",
+                                            "If it is correct, please enter 'Yes'" ),
+                                         type = "yesno" )$res
 
-    if ( sampleNameConfirmation == "yes" ) {
+    if ( sampleNameConfirmation != "yes" ) {
 
-        tkmessageBox( title   = "Message",
-                      message = "Your analysis in in progress",
-                      icon    = "info",
-                      type    = "ok" )
-        as.character(names(df))
+        msg = paste0( "Wrong sample names.\n",
+                      "\n",
+                      "Please re-run the program using correct input file." )
 
-    } else if( sampleNameConfirmation=="no") {
-
-        tkmessageBox( title   = "Message",
-                      message = "Please put a 'samples.CSV' file containing just sample names in one column",
-                      icon    = "info",
-                      type    = "ok" )
-
-        Sample_names = read.csv('samples.csv')
+        updateUserFailure( msg )
     }
 
     # Returning multiple variables as a R-list >>
@@ -95,6 +186,8 @@ readFileInput <- function( pathFileInput ) {
     dataFileInput$df                = df
     dataFileInput$sampleNames       = sampleNames
     dataFileInput$sampleNamesUpdate = sampleNamesUpdate
+
+    Err$note( "Done." )
 
     return( dataFileInput )
 }
@@ -108,11 +201,17 @@ readFileInput <- function( pathFileInput ) {
 # >>
 creatOutputDir <- function( pathDirOutput, type = "secondary" ) {
 
+    Err$note(0)
+    Err$note( paste0( "Creating output directory" ) )
+
     dateTimeCurrent = format( Sys.time(), "%Y%m%d_%H%M%S" )        # << get current date and time
     nameDirOutput   = paste0( "ypssc_", dateTimeCurrent, "_", type )    # << name of the output folder
     pathDirOutput   = paste0( pathDirOutput, "/", nameDirOutput )  # << path of the output folder
     dir.create( pathDirOutput )                                    # creating new folder for output files
     setwd( pathDirOutput )              # << setting working dir to "pathDirOutput" to write output files
+    Err$note( "Done." )
+    Err$note( paste0( "Output directory created:\n",
+                      "'", getwd(), "'" ) )
 
     return( dateTimeCurrent )
 }
@@ -125,31 +224,112 @@ creatOutputDir <- function( pathDirOutput, type = "secondary" ) {
 # >>
 removeRows <- function( df, dateTimeCurrent ) {
 
-    removeDoubious = dlgInput( paste0("Do you want to remove the rows containing doubious proteins?\n",
-                                      "Rows that have 2 or more protiens assigned to one identified peptide are called doubious\n",
-                                      "Answer with yes or no") )$res
-    df = filter( df, !grepl( ';', df$Proteins) )
-    write.csv( df, paste0( dateTimeCurrent, "_", 'df.csv' ), row.names = FALSE)
+    Err$note(0)
+    Err$note( paste0( "Filtering input file:" ) )
 
-    removeReverse  = dlgInput( paste0("Do you want to remove rows that contains peptides that matched to decoy that has reverse ",
-                                      "sequnce of real protein?\n",
-                                      "Theses proteins are usually removed.\n",
-                                      "Answer with yes or no") )$res
-    df = filter( df, !grepl( '\\+', df$Reverse) )
+    # Removing rows containing doubious proteins >>
+    removeDoubious = dlgMessage( paste0( "Do you want to remove the rows containing doubious proteins?\n",
+                                         "Rows that have 2 or more protiens assigned to one identified peptide are called doubious\n",
+                                         "Answer with yes or no" ),
+                                 type = "yesno" )$res
+    Err$note( "Removing rows containing doubious proteins..." )
+    df = filter( df, !grepl( ';', df$Proteins ) )
 
-    removeReverse  = dlgInput( paste0("Do you want to remove rows that contains peptides that are showing signs of contamination?\n",
-                                      "Theses proteins are usually removed.\n",
-                                      "Answer with yes or no") )$res
-    df = filter( df, !grepl( '\\+', df$Potential.contaminant) )
+    # Removing rows that contains peptides that matched to decoy that has reverse >>
+    removeReverse  = dlgMessage( paste0( "Do you want to remove rows that contains peptides that matched to decoy that has reverse ",
+                                         "sequnce of real protein?\n",
+                                         "Theses proteins are usually removed.\n",
+                                         "Answer with yes or no" ),
+                                 type = "yesno" )$res
+    Err$note( "Removing rows that contains peptides that matched to decoy that has reverse..." )
+    df = filter( df, !grepl( '\\+', df$Reverse ) )
 
-    removeReverse  = dlgInput( paste("Do you want to remove rows that contains peptides that are not showing any intensity?\n",
-                                     "Theses proteins are usually removed.\n",
-                                     "Answer with yes or no") )$res
+    # Removing rows that contains peptides that are showing signs of contamination >>
+    removeContaminant = dlgMessage( paste0( "Do you want to remove rows that contains peptides that are showing signs of contamination?\n",
+                                            "Theses proteins are usually removed.\n",
+                                            "Answer with yes or no" ),
+                                    type = "yesno" )$res
+    Err$note( "Removing rows that contains peptides that are showing signs of contamination..." )
+    df = filter( df, !grepl( '\\+', df$Potential.contaminant ) )
+
+    # Removing rows that contains peptides that are not showing any intensity >>
+    removeReverse  = dlgMessage( paste( "Do you want to remove rows that contains peptides that are not showing any intensity?\n",
+                                        "Theses proteins are usually removed.\n",
+                                        "Answer with yes or no" ),
+                                 type = "yesno" )$res
+    Err$note( "Removing rows that contains peptides that are not showing any intensity..." )
     df = filter( df, df$Intensity > 0 )
+
+    # Print Done >>
+    Err$note( "Done." )
+
+    # Writing new df to output file in output dir >>
+    Err$note(0)
+    Err$note( "Writing filtered file to output file in output dir..." )
+    nameFile = paste0( dateTimeCurrent, "_", 'df.csv' )
+    write.csv( df, nameFile, row.names = FALSE )
+    Err$note( "Done." )
+    # Err$note( paste0( "Output file created:\n",
+    #                   "'", getwd(), "/", nameFile, "'" ) )
+    updateUserFileCreated( nameFile )
 
     return( df )
 }
 ##################################### removeRows() #################################################################################
+####################################################################################################################################
+
+
+####################################################################################################################################
+################################## updateUserFailure ###############################################################################
+# >>
+updateUserFailure  <- function( msg ) {
+
+    msg = paste0( msg, "\n",
+                  "\n",
+                  "Analysis failed!" )
+
+    tkmessageBox( title   = "Error",
+                  message = msg,
+                  icon    = "error",
+                  type    = "ok" )
+
+    Err$abort( msg )
+
+}
+# <<
+################################## updateUserFailure ###############################################################################
+####################################################################################################################################
+
+
+####################################################################################################################################
+################################## updateUserSuccess ###############################################################################
+# >>
+updateUserSuccess  <- function() {
+
+    Err$note(0)
+    Err$box( paste0( "Analysis completed! \n",
+                     "\n",
+                     "Please see output files at: \n",
+                     "'", getwd(), "'" ) )
+    Err$note(0)
+
+}
+# <<
+################################## updateUserSuccess ###############################################################################
+####################################################################################################################################
+
+
+####################################################################################################################################
+################################## updateUserSuccess ###############################################################################
+# >>
+updateUserFileCreated  <- function( nameFile ) {
+
+    Err$note( paste0( "Output file created:\n",
+                      "'", getwd(), "/", nameFile, "'" ) )
+
+}
+# <<
+################################## updateUserSuccess ###############################################################################
 ####################################################################################################################################
 
 

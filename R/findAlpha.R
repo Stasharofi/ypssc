@@ -12,7 +12,7 @@
 #'   folder named “combined”. \cr
 #'   \cr
 #'   In this folder there is another folder named “txt” which contains many files with text format (.txt). One of the files called
-#'   “peptides” which is the input of the YPSSC to calculate secondary structures. YPSSC has been designed such a way that can
+#'   “peptides” which is the input of the ypssc to calculate secondary structures. ypssc has been designed such a way that can
 #'   analyzed and extract information regarding the sample regardless of the name that user chosen for the sample.
 #' @param pathDirOutput Path of the directory to which the output files will be generated.
 #' @return The output of the program is a csv file (.csv) that contains 5 columns, and the number of rows depends on the number of
@@ -49,27 +49,20 @@
 findAlpha = function( pathFileInput = NULL,
                       pathDirOutput = NULL ) {
 
-    # Begin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-    print("Started")
     startTime = Sys.time()
-
-    # Getting current working directory >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
     originalWorkingDir = getwd()
 
-    # Checking if 'pathFileInput' is provided >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    # Print intro >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    if ( is.null( pathFileInput ) ) {
-        writeLines("Please provide path of the input file as argument `pathFileInput`")
-        return( invisible(NULL) )
-    }
+    Err$box( "Alpha Helix Calculator started..." )
+
+    # Checking if 'pathFileInput' is provided or exists >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    pathFileInput = checkFileInput( pathFileInput )
 
     # Checking if 'pathDirOutput' is provided >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    if ( is.null( pathDirOutput ) ) {
-        pathDirOutput = getwd()
-    }
+    pathDirOutput = checkDirOutput( pathDirOutput )
 
     # Reading the input sample file >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -78,7 +71,7 @@ findAlpha = function( pathFileInput = NULL,
     sampleNames       = dataFileInput$sampleNames
     sampleNamesUpdate = dataFileInput$sampleNamesUpdate
 
-    # Create output folder >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    # Creating output folder >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     dateTimeCurrent = creatOutputDir( pathDirOutput, "alpha" )
 
@@ -94,13 +87,15 @@ findAlpha = function( pathFileInput = NULL,
 
     # Alpha helix calculation for dataBase >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    alphaHelixCalculation( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
+    calculationAlphaHelix( df, sampleNames, sampleNamesUpdate, dateTimeCurrent )
 
     # End >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    updateUserSuccess()
     endTime   = Sys.time()
     timeTaken = endTime - startTime
-    print( paste0( "Time taken for the ypssc run: ", format(timeTaken) ) )
+    Err$note(0); Err$note( paste0( "Time taken for the ypssc run: ", format(timeTaken) ) )
+    Err$note(0); Err$note(0)
 
     # Setting working directory back to original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
