@@ -4,7 +4,7 @@
 \alias{findSecondary}
 \title{Secondary Structure Calculator}
 \usage{
-findSecondary(pathFileInput = NULL, pathDirOutput = NULL)
+findSecondary(pathFileInput = NULL, pathDirOutput = NULL, ...)
 }
 \arguments{
 \item{pathFileInput}{Path of the input csv file generated from MaxQuant. \cr

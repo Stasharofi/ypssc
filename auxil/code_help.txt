@@ -81,6 +81,8 @@
 
 7. Install package from a .zip file.
 
+    setwd("C:/Users/Shashank/Dropbox/Projects/20210725_ypssc/ypssc")
+
     a. Create binary .zip file: 
     
         Build -> More -> Build Binary Package

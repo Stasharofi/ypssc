@@ -47,10 +47,11 @@
 ##################################### findChain() ##################################################################################
 # >>
 findChain <- function( pathFileInput = NULL,
-                       pathDirOutput = NULL ) {
+                       pathDirOutput = NULL, ... ) {
 
-    startTime = Sys.time()
+    startTime          = Sys.time()
     originalWorkingDir = getwd()
+    if ( length(c(...)) != 0  ) { isTest = c(...)[1] } else { isTest = FALSE }
 
     # Print intro >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -66,7 +67,7 @@ findChain <- function( pathFileInput = NULL,
 
     # Reading the input sample file >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    dataFileInput     = readFileInput( pathFileInput )
+    dataFileInput     = readFileInput( pathFileInput, isTest )
     df                = dataFileInput$df
     sampleNames       = dataFileInput$sampleNames
     sampleNamesUpdate = dataFileInput$sampleNamesUpdate
@@ -77,7 +78,7 @@ findChain <- function( pathFileInput = NULL,
 
     # Removing the rows that are not needed >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    df = removeRows( df, dateTimeCurrent )
+    df = removeRows( df, dateTimeCurrent, isTest )
 
     # Writing `dataBase_numOfAA` >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -91,7 +92,7 @@ findChain <- function( pathFileInput = NULL,
 
     # End >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    updateUserSuccess()
+    updateUserSuccess(isTest)
     endTime   = Sys.time()
     timeTaken = endTime - startTime
     Err$note(0); Err$note( paste0( "Time taken for the ypssc run: ", format(timeTaken) ) )

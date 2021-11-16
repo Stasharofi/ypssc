@@ -4,7 +4,7 @@
 \alias{findAlpha}
 \title{Alpha Helix Calculator}
 \usage{
-findAlpha(pathFileInput = NULL, pathDirOutput = NULL)
+findAlpha(pathFileInput = NULL, pathDirOutput = NULL, ...)
 }
 \arguments{
 \item{pathFileInput}{Path of the input csv file generated from MaxQuant. \cr

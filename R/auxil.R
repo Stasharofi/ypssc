@@ -102,7 +102,7 @@ checkDirOutput = function( pathDirOutput = NULL ){
 ####################################################################################################################################
 ##################################### readFileInput() ##############################################################################
 # >>
-readFileInput <- function( pathFileInput ) {
+readFileInput <- function( pathFileInput, isTest ) {
 
     Err$note(0)
     Err$note( paste0( "Reading input file...." ) )
@@ -164,12 +164,18 @@ readFileInput <- function( pathFileInput ) {
 
     # Conformation about sample names from user >>
 
-    sampleNameConfirmation = dlgMessage( c( "Identified sample names in the uploaded file:",
-                                            "\n",
-                                            names_list,
-                                            "\n",
-                                            "If it is correct, please enter 'Yes'" ),
-                                         type = "yesno" )$res
+    writeLines( toString(isTest) )
+
+    if ( !isTest ) {
+        sampleNameConfirmation = dlgMessage( c( "Identified sample names in the uploaded file:",
+                                                "\n",
+                                                names_list,
+                                                "\n",
+                                                "If it is correct, please enter 'Yes'" ),
+                                             type = "yesno" )$res
+    } else {
+        sampleNameConfirmation = "yes"
+    }
 
     if ( sampleNameConfirmation != "yes" ) {
 
@@ -222,43 +228,64 @@ creatOutputDir <- function( pathDirOutput, type = "secondary" ) {
 ####################################################################################################################################
 ##################################### removeRows() #################################################################################
 # >>
-removeRows <- function( df, dateTimeCurrent ) {
+removeRows <- function( df, dateTimeCurrent, isTest ) {
 
     Err$note(0)
     Err$note( paste0( "Filtering input file:" ) )
 
-    # Removing rows containing doubious proteins >>
-    removeDoubious = dlgMessage( paste0( "Do you want to remove the rows containing doubious proteins?\n",
-                                         "Rows that have 2 or more protiens assigned to one identified peptide are called doubious\n",
-                                         "Answer with yes or no" ),
-                                 type = "yesno" )$res
-    Err$note( "Removing rows containing doubious proteins..." )
-    df = filter( df, !grepl( ';', df$Proteins ) )
+    writeLines( toString(isTest) )
 
-    # Removing rows that contains peptides that matched to decoy that has reverse >>
-    removeReverse  = dlgMessage( paste0( "Do you want to remove rows that contains peptides that matched to decoy that has reverse ",
-                                         "sequnce of real protein?\n",
-                                         "Theses proteins are usually removed.\n",
-                                         "Answer with yes or no" ),
-                                 type = "yesno" )$res
-    Err$note( "Removing rows that contains peptides that matched to decoy that has reverse..." )
-    df = filter( df, !grepl( '\\+', df$Reverse ) )
+    if ( !isTest ) {
 
-    # Removing rows that contains peptides that are showing signs of contamination >>
-    removeContaminant = dlgMessage( paste0( "Do you want to remove rows that contains peptides that are showing signs of contamination?\n",
-                                            "Theses proteins are usually removed.\n",
-                                            "Answer with yes or no" ),
-                                    type = "yesno" )$res
-    Err$note( "Removing rows that contains peptides that are showing signs of contamination..." )
-    df = filter( df, !grepl( '\\+', df$Potential.contaminant ) )
+        # Removing rows containing doubious proteins >>
+        removeDoubious = dlgMessage( paste0( "Do you want to remove the rows containing doubious proteins?\n",
+                                             "Rows that have 2 or more protiens assigned to one identified peptide are called doubious\n",
+                                             "Answer with yes or no" ),
+                                     type = "yesno" )$res
+        if ( removeDoubious == "yes" ) {
+            Err$note( "Removing rows containing doubious proteins..." )
+            df = filter( df, !grepl( ';', df$Proteins ) )
+        }
 
-    # Removing rows that contains peptides that are not showing any intensity >>
-    removeReverse  = dlgMessage( paste( "Do you want to remove rows that contains peptides that are not showing any intensity?\n",
-                                        "Theses proteins are usually removed.\n",
-                                        "Answer with yes or no" ),
-                                 type = "yesno" )$res
-    Err$note( "Removing rows that contains peptides that are not showing any intensity..." )
-    df = filter( df, df$Intensity > 0 )
+        # Removing rows that contains peptides that matched to decoy that has reverse >>
+        removeReverse  = dlgMessage( paste0( "Do you want to remove rows that contains peptides that matched to decoy that has reverse ",
+                                             "sequnce of real protein?\n",
+                                             "Theses proteins are usually removed.\n",
+                                             "Answer with yes or no" ),
+                                     type = "yesno" )$res
+        if ( removeReverse == "yes" ) {
+            Err$note( "Removing rows that contains peptides that matched to decoy that has reverse..." )
+            df = filter( df, !grepl( '\\+', df$Reverse ) )
+        }
+
+        # Removing rows that contains peptides that are showing signs of contamination >>
+        removeContaminant = dlgMessage( paste0( "Do you want to remove rows that contains peptides that are showing signs of contamination?\n",
+                                                "Theses proteins are usually removed.\n",
+                                                "Answer with yes or no" ),
+                                        type = "yesno" )$res
+        if ( removeContaminant == "yes" ) {
+            Err$note( "Removing rows that contains peptides that are showing signs of contamination..." )
+            df = filter( df, !grepl( '\\+', df$Potential.contaminant ) )
+        }
+
+        # Removing rows that contains peptides that are not showing any intensity >>
+        removeNoIntensity  = dlgMessage( paste( "Do you want to remove rows that contains peptides that are not showing any intensity?\n",
+                                                "Theses proteins are usually removed.\n",
+                                                "Answer with yes or no" ),
+                                         type = "yesno" )$res
+        if ( removeNoIntensity == "yes" ) {
+            Err$note( "Removing rows that contains peptides that are not showing any intensity..." )
+            df = filter( df, df$Intensity > 0 )
+        }
+
+    } else {
+
+        df = filter( df, !grepl( ';', df$Proteins ) )
+        df = filter( df, !grepl( '\\+', df$Reverse ) )
+        df = filter( df, !grepl( '\\+', df$Potential.contaminant ) )
+        df = filter( df, df$Intensity > 0 )
+
+    }
 
     # Print Done >>
     Err$note( "Done." )
@@ -282,16 +309,18 @@ removeRows <- function( df, dateTimeCurrent ) {
 ####################################################################################################################################
 ################################## updateUserFailure ###############################################################################
 # >>
-updateUserFailure  <- function( msg ) {
+updateUserFailure  <- function( msg, isTest = FALSE ) {
 
     msg = paste0( msg, "\n",
                   "\n",
                   "Analysis failed!" )
 
-    tkmessageBox( title   = "Error",
-                  message = msg,
-                  icon    = "error",
-                  type    = "ok" )
+    if ( !isTest ) {
+        tkmessageBox( title   = "Error",
+                      message = msg,
+                      icon    = "error",
+                      type    = "ok" )
+    }
 
     Err$abort( msg )
 
@@ -304,13 +333,22 @@ updateUserFailure  <- function( msg ) {
 ####################################################################################################################################
 ################################## updateUserSuccess ###############################################################################
 # >>
-updateUserSuccess  <- function() {
+updateUserSuccess  <- function( isTest = FALSE ) {
+
+    msg = paste0( "Analysis completed successfully! \n",
+                  "\n",
+                  "Please see output files at: \n",
+                  "'", getwd(), "'" )
+
+    if ( !isTest ) {
+        tkmessageBox( title   = "Success",
+                      message = msg,
+                      icon    = "info",
+                      type    = "ok" )
+    }
 
     Err$note(0)
-    Err$box( paste0( "Analysis completed! \n",
-                     "\n",
-                     "Please see output files at: \n",
-                     "'", getwd(), "'" ) )
+    Err$box(msg)
     Err$note(0)
 
 }
@@ -320,7 +358,7 @@ updateUserSuccess  <- function() {
 
 
 ####################################################################################################################################
-################################## updateUserSuccess ###############################################################################
+################################## updateUserFileCreated ###########################################################################
 # >>
 updateUserFileCreated  <- function( nameFile ) {
 
@@ -329,7 +367,7 @@ updateUserFileCreated  <- function( nameFile ) {
 
 }
 # <<
-################################## updateUserSuccess ###############################################################################
+################################## updateUserFileCreated ###########################################################################
 ####################################################################################################################################
 
 

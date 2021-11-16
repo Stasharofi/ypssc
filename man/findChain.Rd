@@ -4,7 +4,7 @@
 \alias{findChain}
 \title{Chain Calculator}
 \usage{
-findChain(pathFileInput = NULL, pathDirOutput = NULL)
+findChain(pathFileInput = NULL, pathDirOutput = NULL, ...)
 }
 \arguments{
 \item{pathFileInput}{Path of the input csv file generated from MaxQuant. \cr
