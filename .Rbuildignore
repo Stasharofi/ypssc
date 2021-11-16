@@ -7,7 +7,4 @@
 ^NEWS\.md$
 ^CRAN-RELEASE$
 ^auxil$
-^dataBases$
-^documentation$
-^inputFilesSample$
-^ypssc_results$
+^\.github$

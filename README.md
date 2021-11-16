@@ -1,3 +1,6 @@
+
+[![R-CMD-check](https://github.com/Stasharofi/ypssc/workflows/R-CMD-check/badge.svg)](https://github.com/Stasharofi/ypssc/actions)
+
 # ypssc: Yeast-Proteome Secondary-Structure Calculator
 
 An extension for 'NetSurfP-2.0' which is specifically designed to analyze the results of bottom-up-proteomics that is primarily analyzed with 'MaxQuant'. This tool is designed to process a large number of yeast peptides that produced as a results of whole yeast cell-proteome digestion and provide a coherent picture of secondary structure of proteins.

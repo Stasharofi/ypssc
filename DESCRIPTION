@@ -30,7 +30,8 @@ StagedInstall: yes
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Suggests:
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 Imports:
     spelling,
     dplyr,
@@ -43,3 +44,4 @@ Imports:
     tcltk
 Depends:
     R (>= 2.10)
+Config/testthat/edition: 3
