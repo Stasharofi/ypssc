@@ -1,0 +1,126 @@
+
+1. Cannot move to destination
+
+    Sys.setenv(R_INSTALL_STAGED = FALSE)
+    
+2. Cannot find 'q3' in dataBase_alpha
+
+    library(dplyr)
+  
+3. No of lines:
+
+    # Code:
+    
+        library(magrittr)
+        library(stringr)
+        library(readr)
+
+        number_of_lines_of_code <- function(file_path){
+            file                     = readr::read_file(file_path)
+            file_lines               = file %>% stringr::str_split("\n") 
+            first_character_of_lines = file_lines %>%
+            lapply(function(line)stringr::str_replace_all(line," ",""))  %>% 
+            lapply(function(line)stringr::str_sub(line,1,1)) %>%
+            unlist
+            sum(first_character_of_lines != "#" & first_character_of_lines != "\r")
+        }
+
+        number_of_lines_of_code("C:/Users/Shashank/Dropbox/Projects/Transmembrane-alpha-helix-calculator/AHC_TestPackage_20210927/alphaHelixCalculator/R/auxil.R")
+        
+    Stats for no. of lines:
+
+        a. findAlpha.R             : 29
+        b. findBeta.R              : 29
+        c. findChain.R             : 29
+        d. findSecondary.R         : 31
+        e. alphaHelixCalculation.R : 106
+        f. betaSheetCalculation.R  : 106
+        g. chainCalculation.R      : 106
+        h. auxil.R                 : 98
+
+4. Submit to CRAN:
+  
+    > devtools::submit_cran()
+    Is your email address shashank.kumbhare@mavs.uta.edu?
+    1: I forget
+    2: No
+    3: Yup
+
+    Selection: 3
+    i Building
+    √  checking for file 'C:\Users\Shashank\Dropbox\Projects\20210725_ypssc\ypssc_testPackage_20210927\ypssc/DESCRIPTION' (565ms)
+    -  preparing 'ypssc': (519ms)
+    √  checking DESCRIPTION meta-information ... 
+    -  checking for LF line-endings in source and make files and shell scripts (343ms)
+    -  checking for empty or unneeded directories
+    -  building 'ypssc_1.0.0.tar.gz'
+       
+    i Submitting file: C:\Users\Shashank\AppData\Local\Temp\RtmpmMXGIo/ypssc_1.0.0.tar.gz
+    i File size: 1.2 Mb
+    Ready to submit ypssc (1.0.0) to CRAN?
+    1: No
+    2: Not yet
+    3: Yeah
+
+    Selection: 3
+    i Uploading package & comments
+    i Confirming submission
+    √ Package submission successful
+    i Check your email for confirmation link.
+    ! Don't forget to tag this release once accepted by CRAN
+    √ Adding '^CRAN-RELEASE$' to '.Rbuildignore'
+    
+5. Possibly misspelled words in DESCRIPTION:
+  
+    usethis::use_spell_check()
+    
+6. 'LazyData' is specified without a 'data' directory:
+
+    Remove following from the DESCRIPTION file: 
+    LazyData: true
+
+7. Install package from a .zip file.
+
+    a. Create binary .zip file: 
+    
+        Build -> More -> Build Binary Package
+    
+    b. Install sourse .zip file: 
+    
+        path_to_file = "C:/Users/Shashank/Dropbox/Projects/20210725_ypssc/ypssc_testPackage_20210927/ypssc_1.0.0.zip"
+        install.packages(path_to_file, repos = NULL, type="source")
+        
+        library(ypssc)
+        
+        findBeta(  pathFileInput = "C:/Users/Shashank/Desktop/peptides_second rep.csv",
+                    pathDirOutput = "C:/Users/Shashank/Downloads/" )
+    
+8.  R-package useful links:
+
+    1. https://cran.r-project.org/doc/manuals/r-release/R-exts.html
+    2. https://r-pkgs.org/index.html
+    3. https://colinfay.me/writing-r-extensions/index.html
+    4. https://github.com/ThinkR-open/prepare-for-cran
+    5. 
+
+9. 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
