@@ -34,8 +34,8 @@
 #'   4. It is the input file from MaxQuant that's been cleaned up for the sole purpose of calculating secondary structures.
 #' @examples
 #' \dontrun{
-#' findChain( pathFileInput = "<somePathInputFile>",
-#'            pathDirOutput = "<somePathOutputFolder>")
+#' findChain( pathFileInput = "some/path/to/inputFile.csv",
+#'            pathDirOutput = "some/path/to/outputDir/" )
 #'
 #' findChain()
 #' }

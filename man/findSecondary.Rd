@@ -47,10 +47,14 @@ percentage) with secondary structure like alpha-helix, beta sheet; also determin
 }
 \examples{
 \dontrun{
-findSecondary( pathFileInput = "<somePathInputFile>",
-               pathDirOutput = "<somePathOutputFolder>")
+findSecondary( pathFileInput = "some/path/to/inputFile.csv",
+               pathDirOutput = "some/path/to/outputDir/" )
 
 findSecondary()
+}
+\donttest{
+findSecondary( pathFileInput = "https://raw.githubusercontent.com/Stasharofi/ypssc/main/auxil/inputFilesSample/exampleInputFileSmall.csv",
+               pathDirOutput = getwd() )
 }
 }
 \seealso{

@@ -11,7 +11,7 @@ checkFileInput = function( pathFileInput = NULL ){
 
     # Checking if `pathFileInput` is provided or the file exists >>
     if ( is.null(pathFileInput) ) { isFile = FALSE }
-    else                          { isFile = file.exists( pathFileInput ) }
+    else                          { isFile = file.exists( pathFileInput ) | startsWith( pathFileInput, "https") }
 
     # Selecting an input file from a doalog box if `pathFileInput` is not provided or if `pathFileInput` does not exists >>
     if ( !isFile ) {

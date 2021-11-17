@@ -47,10 +47,14 @@ percentage) with alpha-helix, structure.
 }
 \examples{
 \dontrun{
-findAlpha( pathFileInput = "<somePathInputFile>",
-           pathDirOutput = "<somePathOutputFolder>")
+findAlpha( pathFileInput = "some/path/to/inputFile.csv",
+           pathDirOutput = "some/path/to/outputDir/" )
 
 findAlpha()
+}
+\donttest{
+findAlpha( pathFileInput = "https://raw.githubusercontent.com/Stasharofi/ypssc/main/auxil/inputFilesSample/exampleInputFileSmall.csv",
+           pathDirOutput = getwd() )
 }
 }
 \seealso{

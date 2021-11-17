@@ -42,8 +42,8 @@
 #'   4. It is the input file from MaxQuant that's been cleaned up for the sole purpose of calculating secondary structures.
 #' @examples
 #' \dontrun{
-#' findSecondary( pathFileInput = "<somePathInputFile>",
-#'                pathDirOutput = "<somePathOutputFolder>")
+#' findSecondary( pathFileInput = "some/path/to/inputFile.csv",
+#'                pathDirOutput = "some/path/to/outputDir/" )
 #'
 #' findSecondary()
 #' }

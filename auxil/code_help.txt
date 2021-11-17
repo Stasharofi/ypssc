@@ -104,10 +104,15 @@
     3. https://colinfay.me/writing-r-extensions/index.html
     4. https://github.com/ThinkR-open/prepare-for-cran
 
-9. 
+9. Include tests in binary R package
 
+    devtools::build(binary=TRUE, args=c("--preclean", "--install-tests"))
     
-    
+10. 
+
+
+
+
     
     
     

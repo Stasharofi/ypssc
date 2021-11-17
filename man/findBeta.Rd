@@ -47,10 +47,14 @@ percentage) with beta-sheet, structure.
 }
 \examples{
 \dontrun{
-findBeta( pathFileInput = "<somePathInputFile>",
-          pathDirOutput = "<somePathOutputFolder>")
+findBeta( pathFileInput = "some/path/to/inputFile.csv",
+          pathDirOutput = "some/path/to/outputDir/" )
 
 findBeta()
+}
+\donttest{
+findBeta( pathFileInput = "https://raw.githubusercontent.com/Stasharofi/ypssc/main/auxil/inputFilesSample/exampleInputFileSmall.csv",
+          pathDirOutput = getwd() )
 }
 }
 \seealso{

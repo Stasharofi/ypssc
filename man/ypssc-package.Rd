@@ -6,7 +6,7 @@
 \alias{ypssc-package}
 \title{ypssc: Yeast-Proteome Secondary-Structure Calculator}
 \description{
-An extension for 'NetSurfP-2.0' which is specifically designed to analyze the results of bottom-up-proteomics that is primarily analyzed with 'MaxQuant'. This tool is designed to process a large number of yeast peptides that produced as a results of whole yeast cell-proteome digestion and provide a coherent picture of secondary structure of proteins.
+An extension for 'NetSurfP-2.0' (Klausen et al. (2019) <doi:10.1002/prot.25674>) which is specifically designed to analyze the results of bottom-up-proteomics that is primarily analyzed with 'MaxQuant' (Cox, J., Mann, M. (2008) <doi:10.1038/nbt.1511>). This tool is designed to process a large number of yeast peptides that produced as a results of whole yeast cell-proteome digestion and provide a coherent picture of secondary structure of proteins.
 }
 \details{
 \describe{\item{\emph{\strong{What is \code{ypssc}?}}}{
@@ -103,6 +103,7 @@ Authors:
   \item Sajad Tasharofi \email{sajad.tasharofi@uta.edu} [copyright holder]
   \item Bent Petersen \email{bent.petersen@sund.ku.dk}
   \item Morteza Khaledi \email{morteza.khaledi@uta.edu}
+  \item Amir Shahmoradi \email{a.shahmoradi@uta.edu}
 }
 
 }

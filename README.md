@@ -1,5 +1,7 @@
 
+<!-- badges: start -->
 [![R-CMD-check](https://github.com/Stasharofi/ypssc/workflows/R-CMD-check/badge.svg)](https://github.com/Stasharofi/ypssc/actions)
+<!-- badges: end -->
 
 # ypssc: Yeast-Proteome Secondary-Structure Calculator
 

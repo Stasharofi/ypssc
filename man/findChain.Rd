@@ -47,10 +47,14 @@ percentage) with primary, structure.
 }
 \examples{
 \dontrun{
-findChain( pathFileInput = "<somePathInputFile>",
-           pathDirOutput = "<somePathOutputFolder>")
+findChain( pathFileInput = "some/path/to/inputFile.csv",
+           pathDirOutput = "some/path/to/outputDir/" )
 
 findChain()
+}
+\donttest{
+findChain( pathFileInput = "https://raw.githubusercontent.com/Stasharofi/ypssc/main/auxil/inputFilesSample/exampleInputFileSmall.csv",
+           pathDirOutput = getwd() )
 }
 }
 \seealso{
