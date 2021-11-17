@@ -18,6 +18,8 @@ In this folder there is another folder named “txt” which contains many files
 analyzed and extract information regarding the sample regardless of the name that user chosen for the sample.}
 
 \item{pathDirOutput}{Path of the directory to which the output files will be generated.}
+
+\item{...}{(for developer use only)}
 }
 \value{
 The output of the program is a csv file (.csv) that contains 5 columns, and the number of rows depends on the number of
@@ -47,6 +49,8 @@ percentage) with alpha-helix, structure.
 \dontrun{
 findAlpha( pathFileInput = "<somePathInputFile>",
            pathDirOutput = "<somePathOutputFolder>")
+
+findAlpha()
 }
 }
 \seealso{

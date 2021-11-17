@@ -164,8 +164,6 @@ readFileInput <- function( pathFileInput, isTest ) {
 
     # Conformation about sample names from user >>
 
-    writeLines( toString(isTest) )
-
     if ( !isTest ) {
         sampleNameConfirmation = dlgMessage( c( "Identified sample names in the uploaded file:",
                                                 "\n",
@@ -232,8 +230,6 @@ removeRows <- function( df, dateTimeCurrent, isTest ) {
 
     Err$note(0)
     Err$note( paste0( "Filtering input file:" ) )
-
-    writeLines( toString(isTest) )
 
     if ( !isTest ) {
 

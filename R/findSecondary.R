@@ -15,6 +15,7 @@
 #'   “peptides” which is the input of the ypssc to calculate secondary structures. ypssc has been designed such a way that can
 #'   analyzed and extract information regarding the sample regardless of the name that user chosen for the sample.
 #' @param pathDirOutput Path of the directory to which the output files will be generated.
+#' @param ... (for developer use only)
 #' @import dplyr
 #' @import readxl
 #' @import stringr
@@ -43,6 +44,8 @@
 #' \dontrun{
 #' findSecondary( pathFileInput = "<somePathInputFile>",
 #'                pathDirOutput = "<somePathOutputFolder>")
+#'
+#' findSecondary()
 #' }
 #' @seealso [`findAlpha`], [`findBeta`], [`findChain`]
 #' @export

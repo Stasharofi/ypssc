@@ -89,7 +89,7 @@
     
     b. Install sourse .zip file: 
     
-        path_to_file = "C:/Users/Shashank/Dropbox/Projects/20210725_ypssc/ypssc_1.0.0.zip"
+        path_to_file = "C:/Users/Shashank/Dropbox/Projects/20210725_ypssc/ypssc_0.1.0.zip"
         install.packages(path_to_file, repos = NULL, type="source")
         
         library(ypssc)
@@ -103,20 +103,9 @@
     2. https://r-pkgs.org/index.html
     3. https://colinfay.me/writing-r-extensions/index.html
     4. https://github.com/ThinkR-open/prepare-for-cran
-    5. 
 
 9. 
-    
-    
-    
-func <- function() {
 
-    return( invisible(4) )
-
-}
-    
-    
-    
     
     
     
