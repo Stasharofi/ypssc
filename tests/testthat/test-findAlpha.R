@@ -1,5 +1,7 @@
 test_that("findAlpha works", {
 
+    skip_on_cran()
+
     pathFileInput = system.file( "extdata", "exampleInputFile.csv", package = "ypssc" )
 
     temp = tempdir()

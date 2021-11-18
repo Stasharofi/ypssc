@@ -52,10 +52,6 @@ findSecondary( pathFileInput = "some/path/to/inputFile.csv",
 
 findSecondary()
 }
-\donttest{
-findSecondary( pathFileInput = "https://raw.githubusercontent.com/Stasharofi/ypssc/main/auxil/inputFilesSample/exampleInputFileSmall.csv",
-               pathDirOutput = getwd() )
-}
 }
 \seealso{
 \code{\link{findAlpha}}, \code{\link{findBeta}}, \code{\link{findChain}}
