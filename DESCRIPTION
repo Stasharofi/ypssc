@@ -7,7 +7,7 @@ Description: An extension for 'NetSurfP-2.0' (Klausen et al. (2019) <doi:10.1002
     This tool is designed to process a large number of yeast peptides that produced as a
     results of whole yeast cell-proteome digestion and provide a coherent picture of
     secondary structure of proteins.
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person(given = "Sajad",
         family   = "Tasharofi",
