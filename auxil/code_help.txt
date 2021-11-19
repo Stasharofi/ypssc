@@ -108,7 +108,19 @@
 
     devtools::build(binary=TRUE, args=c("--preclean", "--install-tests"))
     
-10. 
+10. Install from github:
+
+    1. install.packages("devtools")
+    2. library(devtools)
+    3. install_github("Stasharofi/ypssc")
+    
+11. Packages not installing:
+
+    library("Hmisc")
+    
+12. 
+    
+
 
 
 

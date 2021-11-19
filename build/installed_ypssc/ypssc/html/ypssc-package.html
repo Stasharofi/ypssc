@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: ypssc: Yeast-Proteome Secondary-Structure Calculator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for ypssc-package {ypssc}"><tr><td>ypssc-package {ypssc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>ypssc: Yeast-Proteome Secondary-Structure Calculator</h2>
+
+<h3>Description</h3>
+
+<p>An extension for 'NetSurfP-2.0' (Klausen et al. (2019) &lt;doi:10.1002/prot.25674&gt;) which is specifically designed to analyze the results of bottom-up-proteomics that is primarily analyzed with 'MaxQuant' (Cox, J., Mann, M. (2008) &lt;doi:10.1038/nbt.1511&gt;). This tool is designed to process a large number of yeast peptides that produced as a results of whole yeast cell-proteome digestion and provide a coherent picture of secondary structure of proteins.
+</p>
+
+
+<h3>Details</h3>
+
+<dl>
+<dt><em><strong>What is <code>ypssc</code>?</strong></em></dt><dd>
+<p><strong><code>ypssc</code></strong> is an extension for NetSurfP-2.0 which is specifically designed to analyze the results of bottom-up proteomics that
+is primarily analyzed with MaxQuant. We call this tool <em><strong>Yeast Proteome Secondary Structure Calculator</strong></em> (<strong><code>ypssc</code></strong>).
+</p>
+<hr>
+<p><strong>Functionalities in <code>ypssc</code></strong>:
+</p>
+
+<ol>
+<li> <p><code><a href="../../ypssc/help/findSecondary.html">findSecondary</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../ypssc/help/findAlpha.html">findAlpha</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../ypssc/help/findBeta.html">findBeta</a></code>
+</p>
+</li>
+<li> <p><code><a href="../../ypssc/help/findChain.html">findChain</a></code>
+</p>
+<p>(Click the above links to find out more about these functionalities and their usage.)
+</p>
+</li></ol>
+
+<hr>
+<p><strong>Note:</strong> NetSurfP
+</p>
+
+<ul>
+<li><p> NetSurfP-1.0 is a prediction tool for secondary structures using neural network.
+</p>
+</li>
+<li><p> NetSurfP-2.0 is an extension of NetSurfP-1.0 which utilized deep neural network to predict secondary structures with the
+accuracy of 85%. In addition to accuracy, this tool presents reduced computational time compared to other methods.
+</p>
+</li>
+<li><p> NetSurfP-2.0 is designed to be user friendly and efficient in calculation time of large number of sequences. In addition to
+that the output of the calculation is available in many formats that would make further data analysis even easier.
+</p>
+</li>
+<li><p> NetSurfP-2.0 is available as a web-sever (http://www.cbs.dtu.dk/services/NetSurfP-2.0/) which can accept up to 4000 sequences
+at a time.
+</p>
+</li></ul>
+
+</dd></dl>
+
+<hr>
+<dl>
+<dt><em><strong>Why this package?</strong></em></dt><dd>
+<p>This tool is designed to process large number of yeast peptides that produced as a results of whole yeast cell proteome digestion
+and provide a coherent picture of secondary structure of proteins. NetSurfP-2.0 is not designed to do this task.
+</p>
+<hr>
+<p><strong>Drawbacks of NetSurfP-2.0</strong>
+</p>
+
+<ul>
+<li><p> First, NetSurfP-2.0 is not designed to accept as many peptides at once, therefore the process of uploading the sequences and
+waiting for the calculations to be complete is extremely time consuming.
+</p>
+</li>
+<li><p> Second, even if all sequences uploaded successfully and the results are back, it would be almost impossible to combine the
+results that have been produced for each individual peptide  (hundreds of thousands of spread sheets) to get a coherent
+picture of the secondary structure of the proteins.
+</p>
+</li></ul>
+
+<hr>
+<p><strong>Advantages of <code>ypssc</code></strong>
+</p>
+
+<ul>
+<li> <p><strong><code>ypssc</code></strong>, on one hand benefits forms the accuracy of NetSurfP-2.0 to calculate secondary structure and on the other hand
+address the issue of analyzing so many peptides with NetSurfP-2.0 by eliminating the need for direct analysis of the peptides
+from bottom-up proteomics.
+</p>
+</li>
+<li><p> Instead of direct analysis of peptides by NetSurfP-2.0 which raises the problem of combining the results of peptides to
+proteins, the whole yeast proteome has been analyzed once by NetSurfP-2.0 and kept as Secondary Structure Database for Yeast
+Proteome (SSDYP). Then the peptides form the experiment are matched and compared to this database to extract secondary
+structure of the peptides.
+</p>
+</li></ul>
+
+</dd></dl>
+
+<hr>
+<dl>
+<dt><em><strong>Methodology</strong></em></dt><dd>
+<p>The SSDYP contains structural information for all amino acids of whole yeast proteome (Over 3000,000 amino acids) which contains
+over 6700 proteins. For a hypothetical protein, the SSDYP contains the ID of the protein, amino acids with numbers and structural
+information for each amino acid. Focusing on the hypothetical protein, in the real sample, there are many peptides identified
+from the hypothetical protein. <strong><code>ypssc</code></strong> first finds all the peptides that belongs to the hypothetical protein and arrange them
+based on the numbers of the amino acids; then it removes the parts of the protein that have been identified more than once in
+multiple peptides and collapses the population of identified peptides in the sample into one sequence that represents the
+coverage of the hypothetical protein. The result would show that which part of the protein is identified, and which part is
+missing. Then, <strong><code>ypssc</code></strong> matches the the sequence that identified in the sample with SSDYP to find the structural information
+about amino acids.
+</p>
+</dd></dl>
+
+<hr>
+
+
+<h3>Author(s)</h3>
+
+<p><strong>Maintainer</strong>: Shashank Kumbhare <a href="mailto:shashank.kumbhare@mavs.uta.edu">shashank.kumbhare@mavs.uta.edu</a> [copyright holder]
+</p>
+<p>Authors:
+</p>
+
+<ul>
+<li><p> Sajad Tasharofi <a href="mailto:sajad.tasharofi@uta.edu">sajad.tasharofi@uta.edu</a> [copyright holder]
+</p>
+</li>
+<li><p> Bent Petersen <a href="mailto:bent.petersen@sund.ku.dk">bent.petersen@sund.ku.dk</a>
+</p>
+</li>
+<li><p> Morteza Khaledi <a href="mailto:morteza.khaledi@uta.edu">morteza.khaledi@uta.edu</a>
+</p>
+</li>
+<li><p> Amir Shahmoradi <a href="mailto:a.shahmoradi@uta.edu">a.shahmoradi@uta.edu</a>
+</p>
+</li></ul>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../ypssc/help/findSecondary.html">findSecondary</a></code>, <code><a href="../../ypssc/help/findAlpha.html">findAlpha</a></code>, <code><a href="../../ypssc/help/findBeta.html">findBeta</a></code>, <code><a href="../../ypssc/help/findChain.html">findChain</a></code>
+</p>
+
+<hr /><div style="text-align: center;">[Package <em>ypssc</em> version 1.0.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>

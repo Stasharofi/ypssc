@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>R: Chain Calculator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<link rel="stylesheet" type="text/css" href="R.css" />
+</head><body><div class="container">
+
+<table width="100%" summary="page for findChain {ypssc}"><tr><td>findChain {ypssc}</td><td style="text-align: right;">R Documentation</td></tr></table>
+
+<h2>Chain Calculator</h2>
+
+<h3>Description</h3>
+
+<p>Form bottom-up proteomics data of proteins (peptides), this function determines the sections of proteins (in
+percentage) with primary, structure.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+findChain(pathFileInput = NULL, pathDirOutput = NULL, ...)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>pathFileInput</code></td>
+<td>
+<p>Path of the input csv file generated from MaxQuant. <br />
+<br />
+MaxQuant is a quantitative proteomics software designed to analyze large mass-spectrometric data. The input of MaxQuant is a
+raw file (.raw) from high-resolution mass spectrometers. After analysis of the raw file in MaxQuant, the program generates a
+folder named “combined”. <br />
+<br />
+In this folder there is another folder named “txt” which contains many files with text format (.txt). One of the files called
+“peptides” which is the input of the ypssc to calculate secondary structures. ypssc has been designed such a way that can
+analyzed and extract information regarding the sample regardless of the name that user chosen for the sample.</p>
+</td></tr>
+<tr valign="top"><td><code>pathDirOutput</code></td>
+<td>
+<p>Path of the directory to which the output files will be generated.</p>
+</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+<p>(for developer use only)</p>
+</td></tr>
+</table>
+
+
+<h3>Value</h3>
+
+<p>The output of the program is a csv file (.csv) that contains 5 columns, and the number of rows depends on the number of
+proteins in the sample. <br />
+<br />
+First column contains the ID of the identified alpha-helix proteins in the sample, second column contains the number of identified
+amino acids from the corresponding protein, third column contains number of identified amino acids with secondary structure,
+fourth column contains the number of amino acids that the protein originally has in the SSDYP, and fifth column contains the
+number of amino acids in chain structure that the protein originally has in the SSDYP. <br />
+<br />
+These columns should provide all information that the user needs to know about the protein and its structural information as
+well as structural information about the parts of the protein that has been identified in the sample. <br />
+<br />
+In addition, it also generates 4 more '.csv' files. <br />
+</p>
+
+<ol>
+<li><p> The no. of proteins found in the sample. <br />
+</p>
+</li>
+<li><p> The no. of peptides found in the sample. <br />
+</p>
+</li>
+<li><p> The no. of amino acids for each protein in database. <br />
+</p>
+</li>
+<li><p> It is the input file from MaxQuant that's been cleaned up for the sole purpose of calculating secondary structures.
+</p>
+</li></ol>
+
+
+
+<h3>See Also</h3>
+
+<p><code><a href="../../ypssc/help/findSecondary.html">findSecondary</a></code>, <code><a href="../../ypssc/help/findAlpha.html">findAlpha</a></code>, <code><a href="../../ypssc/help/findBeta.html">findBeta</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+findChain( pathFileInput = "some/path/to/inputFile.csv",
+           pathDirOutput = "some/path/to/outputDir/" )
+
+findChain()
+
+## End(Not run)
+</pre>
+
+<hr /><div style="text-align: center;">[Package <em>ypssc</em> version 1.0.0 <a href="00Index.html">Index</a>]</div>
+</div></body></html>
