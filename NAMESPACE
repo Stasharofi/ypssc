@@ -12,3 +12,4 @@ import(stringr)
 import(svDialogs)
 import(tcltk)
 import(utils)
+shinyjs’, ‘shinyWidgets’, ‘whoami’
