@@ -32,7 +32,7 @@ Authors@R: c(
 License: GPL (>= 3)
 Encoding: UTF-8
 StagedInstall: yes
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 Suggests:
     rmarkdown,
