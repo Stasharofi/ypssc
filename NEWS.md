@@ -1,7 +1,3 @@
-# ypssc (development version)
-
-# ypssc 1.1.0
-
-# ypssc 1.0.0.9000
+# ypssc 1.1.0.9000
 
 * Added a `NEWS.md` file to track changes to the package.
