@@ -7,4 +7,5 @@
 ^NEWS\.md$
 ^CRAN-RELEASE$
 ^auxil$
+^build$
 ^\.github$

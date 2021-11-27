@@ -3,11 +3,12 @@
 ##################################### auxil functions ##############################################################################
 ####################################################################################################################################
 
+filter <- dplyr::filter
 
 ####################################################################################################################################
 ##################################### checkFileInput() #############################################################################
 # >>
-checkFileInput = function( pathFileInput = NULL ){
+checkFileInput <- function( pathFileInput = NULL ){
 
     # Checking if `pathFileInput` is provided or the file exists >>
     if ( is.null(pathFileInput) ) { isFile = FALSE }
@@ -55,7 +56,7 @@ checkFileInput = function( pathFileInput = NULL ){
 ####################################################################################################################################
 ##################################### checkDirOutput() #############################################################################
 # >>
-checkDirOutput = function( pathDirOutput = NULL ){
+checkDirOutput <- function( pathDirOutput = NULL ){
 
     # Checking if `pathDirOutput` is provided or the dir exists >>
     if ( is.null(pathDirOutput) ) { isDir = FALSE }
