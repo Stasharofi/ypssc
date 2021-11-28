@@ -118,6 +118,8 @@
 
     library("Hmisc")
     
+    install.packages("ypssc", dependencies = TRUE, INSTALL_opts = '--no-lock')
+    
 12. 
     
 
